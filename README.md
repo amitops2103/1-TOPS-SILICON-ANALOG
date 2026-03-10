@@ -7,8 +7,10 @@
 
 **INTERNAL DOCS**
 - [Introduction to IC Design Flow](https://www.dropbox.com/scl/fi/ptqzuqsiie5ny5yupyhhw/2025-1130-Intro-IC-Design.pdf?rlkey=47b2c9564dapajuhyvie65v6b&dl=0)
-- [Introdcution to Computer Architecture Using RISC-V](docs/CompArchRISCVIntro.md)
-  
+- [Introdcution to Computer Architecture Using RISC-V](docs/CompArchRISCVIntro.md) on 07 Mar 2026
+
+**1-TOPS DOCS**
+- [DV Presentation](docs/2026-0307-Presentation-DV-1_TOPS.pdf): 
 **PULP PLATFORM FROM ETH ZURICH**
 - [PULP Platform Project Page](https://pulp-platform.org/)
 - [Pulpino GitHub](https://github.com/pulp-platform/pulpino)

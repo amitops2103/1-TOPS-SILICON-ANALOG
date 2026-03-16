@@ -15,14 +15,12 @@ The main fundamental building blocks of a SAR-ADC are :
 **2. DAC**     
 **3. Comparator**     
 **4. SAR logic (Successive Aproximation register)**   
-
-*P-1 : Conventional Architecture* 
+ 
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/conventional_architecture.jpg" title="Figure 3" height="300" width="4000">
 <p align="center"> Figure 2: Conventional Architecture</p>   
 
 
-*p-2 : Monotonic Switching Architecture*
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/monotonic_architecture.jpg" title="Figure 3" height="300" width="4000">
 <p align="center"> Figure 3: Monotonic Architecture</p>   

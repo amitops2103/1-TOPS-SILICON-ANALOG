@@ -1,6 +1,7 @@
 # **1-TOPS** proposed architecture   
 
-<img width="641" height="473" alt="image" src="https://github.com/user-attachments/assets/5beb36e6-c54a-464f-b28a-0277047e891b" />
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/top_architecture.png" title="Figure 3" height="350" width="3000">
+<p align="center"> Figure 1: Top level Architecture</p> 
 
 --------
 
@@ -18,13 +19,13 @@ The main fundamental building blocks of a SAR-ADC are :
 *P-1 : Conventional Architecture* 
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/conventional_architecture.jpg" title="Figure 3" height="300" width="4000">
-<p align="center"> Figure 2: Architecture_Conventional</p>   
+<p align="center"> Figure 2: Conventional Architecture</p>   
 
 
 *p-2 : Monotonic Switching Architecture*
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/monotonic_architecture.jpg" title="Figure 3" height="300" width="4000">
-<p align="center"> Figure 3: Architecture_Monotonic</p>   
+<p align="center"> Figure 3: Monotonic Architecture</p>   
 
 - Brief Working of SAR ADC    
    1. The Capacitor network serves as both S/H circuit and a reference DAC capacitor array.      

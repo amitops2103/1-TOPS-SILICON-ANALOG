@@ -21,6 +21,9 @@ The main fundamental building blocks of a SAR-ADC are :
 
 *p-2 : Monotonic Switching Architecture*
 
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/monotonic_architecture.jpg" alt="Architecture_Monotonic" title="Figure 3" height="300" width="4000">
+<p align="center"> Figure 3: Architecture_Monotonic</p>   
+
 - Brief Working of SAR ADC    
    1. The Capacitor network serves as both S/H circuit and a reference DAC capacitor array.      
    2. **Sampling the Input** : The analog input voltage is first sampled and held by a sample-and-hold circuit so it remains constant during the conversion process.    

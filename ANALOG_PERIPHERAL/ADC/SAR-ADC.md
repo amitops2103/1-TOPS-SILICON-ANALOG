@@ -17,11 +17,13 @@ The main fundamental building blocks of a SAR-ADC are :
 
 *P-1 : Conventional Architecture* 
 
-![Untitled design](https://github.com/user-attachments/assets/8c9f3bce-6127-4628-af94-13b20ed0af2f)
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/conventional_architecture.jpg" title="Figure 3" height="300" width="4000">
+<p align="center"> Figure 2: Architecture_Conventional</p>   
+
 
 *p-2 : Monotonic Switching Architecture*
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/monotonic_architecture.jpg" alt="Architecture_Monotonic" title="Figure 3" height="300" width="4000">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/monotonic_architecture.jpg" title="Figure 3" height="300" width="4000">
 <p align="center"> Figure 3: Architecture_Monotonic</p>   
 
 - Brief Working of SAR ADC    

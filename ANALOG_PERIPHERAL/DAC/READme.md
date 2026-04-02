@@ -687,7 +687,7 @@ A 2-bit sub-DAC using the two MSBs was built and validated first before scaling 
 
 **Measured output levels:**
 
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/2f202686a00616e32230f876630bd8360e69f499/ANALOG_PERIPHERAL/DAC/media/pg20.jpeg" title="Figure 3" height="4000" width="3500">
 
 | b8 | b7 | Expected | Measured | Status |
 |----|----|---------|---------|----|

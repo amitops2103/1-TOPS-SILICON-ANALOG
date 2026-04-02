@@ -106,11 +106,7 @@ Five standard DAC architectures were evaluated against our design constraints be
 Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-ground node via an op-amp.
 
 ```
-b7 ──[R]──┐
-b6 ──[2R]─┤
-b5 ──[4R]─┤
-   ...     ├──── (summing node) ──[R_f]──> V_out
-b0 ──[128R]┘
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/75508664f0830c82739f57189771d07b50ff45a8/ANALOG_PERIPHERAL/DAC/media/pg5.jpeg" title="Figure 3" height="350" width="3000">
 ```
 
 | Pros | Cons |
@@ -127,6 +123,8 @@ b0 ──[128R]┘
 ### 3.2 R-2R Ladder DAC
 
 Uses only two resistor values (R and 2R) in a ladder network. Thevenin resistance at any node is always R — fully scalable.
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/75508664f0830c82739f57189771d07b50ff45a8/ANALOG_PERIPHERAL/DAC/media/pg6.jpeg" title="Figure 3" height="350" width="3000">
 
 | Pros | Cons |
 |------|------|

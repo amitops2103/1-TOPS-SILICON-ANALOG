@@ -331,6 +331,7 @@ This structure is replicated for all 8 bits, with each M_cs scaled to produce th
 Three current mirror topologies were evaluated to distribute the 4 µA reference to all 8 bit branches.
 
 ### 9.1 Simple Current Mirror
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg11.jpeg" title="Figure 3" height="400" width="350">
 
 **Operation:**
 
@@ -350,6 +351,7 @@ Three current mirror topologies were evaluated to distribute the 4 µA reference
 ---
 
 ### 9.2 Cascode Current Mirror
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg12.jpeg" title="Figure 3" height="400" width="350">
 
 **Operation:**
 
@@ -369,6 +371,7 @@ Three current mirror topologies were evaluated to distribute the 4 µA reference
 ---
 
 ### 9.3 Wide-Swing Cascode Current Mirror ✅ Selected
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg13.jpeg" title="Figure 3" height="400" width="350">
 
 **Operation:**
 
@@ -467,6 +470,7 @@ The mirror reference is set to 4 µA because this is the unit cell current from 
 ## 12. Transistor Sizing via the gm/ID Methodology
 
 ### What is gm/ID?
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg14.jpeg" title="Figure 3" height="400" width="350">
 
 gm/ID is the transconductance efficiency — gm per unit bias current. It continuously spans all operating regions:
 
@@ -572,6 +576,7 @@ Base unit cell: **W = 3 µm, L = 2.2 µm**. Binary-weighted currents are achieve
 | n12, n13, n14 | Mirror bias cells | 2.2 | 3 | 16 |
 
 ### Switch Transistors
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg16.jpeg" title="Figure 3" height="400" width="350">
 
 | Transistor | Role | L (µm) | W (µm) |
 |------------|------|---------|---------|

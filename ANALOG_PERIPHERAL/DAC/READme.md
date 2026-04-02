@@ -212,27 +212,9 @@ In a mixed-signal SoC, digital switching causes supply current transients that a
 
 ---
 
-## 5. Single Switch vs Differential Current Steering
+## 5. Binary-Weighted vs Thermometer-Coded 
 
-### Problem with Single Switch Approach
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
-
-When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
-
-### Solution — Differential Current Steering 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
-
-
-- `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
-- `bit = 0` → M1 OFF, M2 ON → current goes to I_out−
-
-**The key insight:** The current source **never turns off**. Node X never collapses. Parasitic capacitance at X causes negligible disturbance. This is why current **steering** fundamentally outperforms current **switching** for linearity and dynamic accuracy.
-
----
-
-## 6. Binary-Weighted vs Thermometer-Coded 
-
-### 6.1 Thermometer-Coded
+### 5.1 Thermometer-Coded
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg8.jpeg" title="Figure 3" height="400" width="350">
 
 8-bit binary decoded to 255-bit thermometer code. Each bit drives one identical unit current source.
@@ -247,7 +229,7 @@ When the switch opens, node X collapses toward 0V. When it closes again, parasit
 | Area | Very large |
 | Routing complexity | Extremely high |
 
-### 6.2 Binary Weighted
+### 5.2 Binary Weighted
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg7.jpeg" title="Figure 3" height="400" width="350">
 
 Each of the N bits directly controls a current source scaled to 2^k × I_unit. No decoder needed.
@@ -264,7 +246,7 @@ Each of the N bits directly controls a current source scaled to 2^k × I_unit. N
 
 ---
 
-## 7. Why Binary Weighted?
+## 6. Why Binary Weighted?
 
 **Reason 1 — Direct SoC Compatibility:**
 The RISC-V CPU writes a natural 8-bit binary value to the DAC register via APB. Each bit **directly drives** its corresponding switch — no decoder. A thermometer DAC needs an 8-to-255 decoder between CPU and switches, adding area, power, and timing skew. For a simple SoC peripheral, this complexity is unjustified.
@@ -284,7 +266,23 @@ The major-carry glitch (0x7F→0x80) matters in high-speed RF DACs where it fold
 | SoC integration | Complex | Simple | **Binary** |
 
 ---
+## 7. Single Switch vs Differential Current Steering
 
+### Problem with Single Switch Approach
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
+
+When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
+
+### Solution — Differential Current Steering 
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
+
+
+- `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
+- `bit = 0` → M1 OFF, M2 ON → current goes to I_out−
+
+**The key insight:** The current source **never turns off**. Node X never collapses. Parasitic capacitance at X causes negligible disturbance. This is why current **steering** fundamentally outperforms current **switching** for linearity and dynamic accuracy.
+
+---
 ## 8. The Current Cell — Razavi's Differential Pair Switch
 
 ### The Problem with Simple Current Switching

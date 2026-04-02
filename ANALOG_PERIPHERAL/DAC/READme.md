@@ -725,7 +725,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 
 **Final 8-Bit Simulation — v(op) vs time:**
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg18.jpeg" title="Figure 3" height="400" width="350">
+
 The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256 codes as the binary input counts 0x00 to 0xFF. Each bit doubling the current step means staircase steps grow progressively larger as higher bits toggle — the characteristic DAC transfer curve.
 
 **Key Observations:**

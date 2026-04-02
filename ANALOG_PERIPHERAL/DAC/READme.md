@@ -60,7 +60,7 @@ RISC-V CPU  ──APB Bus──>  DAC Register  ──>  8-Bit Current Steering 
 ---
 
 ## 2. What is a DAC?
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a28a87e40f93ffea5176bf63c7f3740d4254a496/ANALOG_PERIPHERAL/DAC/media/pg1.jpeg" title="Figure 3" height="400" width="350">
 A **Digital-to-Analog Converter (DAC)** is a circuit that translates a discrete digital binary code into a continuous analog quantity — typically a voltage or current.
 
 In a digital system, a processor works with binary numbers. In the real world, signals are analog — voltages, currents, sounds, sensor readings. A DAC bridges this gap: it takes a number written by a CPU and produces a proportional physical signal that can drive speakers, actuators, displays, sensors, or any analog load.

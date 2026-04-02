@@ -102,14 +102,8 @@ Five standard DAC architectures were evaluated against our design constraints be
 ---
 
 ### 3.1 Binary-Weighted Resistor DAC
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bff1e1911556137de1c08ef851150cae5b1c5a3a/ANALOG_PERIPHERAL/DAC/media/pg5.jpeg" title="Figure 3" height="400" width="350">
 Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-ground node via an op-amp.
-
-```
-<img src="media/pg5.jpej" width="600" height="400" />
-<img src="media/pg5.jpeg" width="600" height="400" />
-```
-
 | Pros | Cons |
 |------|------|
 | Conceptually simple | Requires 128:1 resistor ratio for 8 bits |
@@ -728,20 +722,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 
 **Final 8-Bit Simulation — v(op) vs time:**
 
-```
-V
-1.20 |                                               /\/\/\
-1.10 |                                     /\/\/\/\/
-1.00 |                           /\/\/\/\/
-0.80 |                 /\/\/\/\/
-0.60 |       /\/\/\/\/
-0.30 | /\/\/
-0.02 |/
-0.00 |──
-     +──────────────────────────────────────────────────────
-       0    20   40   60   80  100  120  140  160  200  260 µs
-```
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg18.jpeg" title="Figure 3" height="400" width="350">
 The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256 codes as the binary input counts 0x00 to 0xFF. Each bit doubling the current step means staircase steps grow progressively larger as higher bits toggle — the characteristic DAC transfer curve.
 
 **Key Observations:**

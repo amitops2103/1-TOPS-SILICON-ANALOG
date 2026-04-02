@@ -106,7 +106,7 @@ Five standard DAC architectures were evaluated against our design constraints be
 Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-ground node via an op-amp.
 
 ```
-
+<img src="media/pg5.jpej" width="600" height="400" />
 ```
 
 | Pros | Cons |

@@ -169,7 +169,7 @@ Digital Input ──> [ΣΔ Modulator] ──> [1-bit DAC] ──> [Reconstructi
 ---
 
 ### 3.5 Current Steering DAC ✅ Selected
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bff1e1911556137de1c08ef851150cae5b1c5a3a/ANALOG_PERIPHERAL/DAC/media/pg7.jpeg" title="Figure 3" height="400" width="350">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/9520e48fe60d0eddfb5302fb9fabe2a1e5fa34c0/ANALOG_PERIPHERAL/DAC/media/pg7.jpeg" title="Figure 3" height="400" width="350">
 Each bit controls a dedicated current source. Current is steered between output nodes via a differential switch pair — never switched off.
 
 | Pros | Cons |

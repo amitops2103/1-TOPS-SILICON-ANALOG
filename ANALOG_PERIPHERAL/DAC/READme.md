@@ -120,6 +120,7 @@ Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-gro
 Uses only two resistor values (R and 2R) in a ladder network. Thevenin resistance at any node is always R — fully scalable.
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bff1e1911556137de1c08ef851150cae5b1c5a3a/ANALOG_PERIPHERAL/DAC/media/pg6.jpeg" title="Figure 3" height="400" width="350">
+
 | Pros | Cons |
 |------|------|
 | Only two resistor values | Output impedance varies with digital code |

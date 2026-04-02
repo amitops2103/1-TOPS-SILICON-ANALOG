@@ -681,22 +681,13 @@ All simulations: **ngspice** with **SKY130 TT (typical-typical) MOSFET models**,
 ---
 
 ### 18.1 Stage 1 — 2-Bit Sub-DAC (MSBs b7 and b8)
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/263c3ceaec33dfcd2f0d565e56383773bc490c89/ANALOG_PERIPHERAL/DAC/media/pg17.jpeg" title="Figure 3" height="4000" width="3500">
 
 A 2-bit sub-DAC using the two MSBs was built and validated first before scaling to 8 bits. This approach confirms wide-swing cascode mirror biasing at the highest current levels, differential switch pair operation, and settling/glitch behavior.
 
 **Measured output levels:**
 
-```
-µA
-195 |                         ┌─────────────────┐
-    |                         │ ~195µA (b7+b8)  │
-130 |          ┌──────────────┘                 └── ~130µA (b8 only)
-    |          │
- 67 | ┌────────┘  ~67µA (b7 only)
-  0 |─┘
-    +───────────────────────────────────────────────
-      0    20   40   60   80  100  120  140  160 µs
-```
+
 
 | b8 | b7 | Expected | Measured | Status |
 |----|----|---------|---------|----|
@@ -724,7 +715,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 | Simulation | ngspice transient |
 
 **Final 8-Bit Simulation — v(op) vs time:**
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/263c3ceaec33dfcd2f0d565e56383773bc490c89/ANALOG_PERIPHERAL/DAC/media/pg18.jpeg" title="Figure 3" height="4000" width="3500">
 
 The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256 codes as the binary input counts 0x00 to 0xFF. Each bit doubling the current step means staircase steps grow progressively larger as higher bits toggle — the characteristic DAC transfer curve.
 

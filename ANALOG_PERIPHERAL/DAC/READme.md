@@ -107,6 +107,7 @@ Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-gro
 
 ```
 <img src="media/pg5.jpej" width="600" height="400" />
+<img src="media/pg5.jpeg" width="600" height="400" />
 ```
 
 | Pros | Cons |

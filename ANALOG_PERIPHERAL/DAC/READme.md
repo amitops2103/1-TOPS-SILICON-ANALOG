@@ -217,9 +217,21 @@ In a mixed-signal SoC, digital switching causes supply current transients that a
 
 ## 5. Single Switch vs Differential Current Steering
 
-### Problem with Single Switch Approach
+### Problem with Single Switch (Naive) Approach
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a295e201a717de621a5808e404ee1765d3519610/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
+```
+(Single Switch — WRONG)
+      VDD
+       |
+    [M_cs]   ← current source
+       |
+   node X    ← collapses to 0V when switch opens!
+       |
+    [SW]     ← simple on/off switch
+       |
+    I_out
+```
+
 When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
 
 ### Solution — Differential Current Steering (Razavi, 2018)
@@ -347,23 +359,59 @@ Three current mirror topologies were evaluated to distribute the 4 µA reference
 
 ### 9.1 Simple Current Mirror
 
-**Operation:** Diode-connected M_ref sets V_GS. All output transistors share V_GS and ideally carry the same current.
+**Operation:**
 
-**Disadvantage:** Output impedance is only r_ds (~50 kΩ). Channel-length modulation makes I_out vary with V_DS — current changes as output voltage swings. This produces code-dependent INL errors. Unacceptable for a precision DAC.
+- A current *Iref* is forced through M1, this sets Vgs₁. Gate of M1 = Gate of M2 ⟹ **Vgs₁ = Vgs₂**
+- Since both transistors are identical: ***Iout ≈ Iref***
+- Both transistors must be in saturation region. Condition: **Vds ≥ Vgs − Vt**
+
+**Disadvantages:**
+
+- Low output resistance → current varies with Vout
+- Channel length modulation → non-linear output (INL/DNL errors)
+- Poor current matching between branches
+- Not accurate for precision DAC applications
+
+**Conclusion:** Output impedance is only r_ds (~50 kΩ). Channel-length modulation makes I_out vary with V_DS — current changes as output voltage swings. This produces code-dependent INL errors. Unacceptable for a precision DAC.
 
 ---
 
 ### 9.2 Cascode Current Mirror
 
-Adds cascode transistor above each output branch to fix V_DS of the mirror transistor, suppressing the λ effect.
+**Operation:**
 
-**Output impedance:** g_m × r_ds² (~5 MΩ) — much better.
+- Iref flows through M1, sets Vgs₁ so **Vgs₁ = Vgs₂**, therefore ***Iout ≈ Iref***
+- M3 & M4 keep Vds of M1 & M2 constant, which shields the mirror from output voltage variations
+- Output current becomes almost independent of Vout
 
-**Disadvantage:** Requires V_DS_sat + V_GS ≈ 1.0–1.2 V of headroom just for biasing. On a 1.8 V supply, this leaves insufficient room for the output swing and switch stack.
+**Disadvantages:**
+
+- Requires high voltage headroom → not suitable for low-voltage design
+- Reduces output voltage swing → limits DAC output range
+- Stacked transistors need more Vds → difficult to keep all in saturation
+- Not ideal for low-power, low-supply systems
+
+**Conclusion:** Output impedance g_m × r_ds² (~5 MΩ) is much better, but requires V_DS_sat + V_GS ≈ 1.0–1.2 V of headroom just for biasing. On a 1.8 V supply, this leaves insufficient room for the output swing and switch stack.
 
 ---
 
 ### 9.3 Wide-Swing Cascode Current Mirror ✅ Selected
+
+**Operation:**
+
+- M1 is diode-connected with 4 µA, generates Vgs
+- Gates of M3 & M4 are tied to M1 so **I3 ≈ I4 ≈ Iref**
+- M2 (Vt + 2Von) and M5 (Vt + Von) act as cascode to keep Vds of mirror transistors constant
+- M6 provides output: ***Iout ≈ Iref* (4 µA)**
+- Biasing ensures: **Minimum Vout ≈ Von**
+
+**Why We Use Wide-Swing Cascode:**
+
+- Reduces voltage requirement (low headroom)
+- Keeps all transistors in saturation
+- Maintains high output resistance
+- Provides accurate and constant current replication
+- Allows larger output swing (important for DAC)
 
 Self-generated bias sets the cascode gate voltage so that the bottom transistor operates **at exactly the edge of saturation** — using minimum V_DS = V_ov. This recovers the headroom cost while retaining the same high output impedance.
 
@@ -816,4 +864,3 @@ At code 0x00 (all bits OFF):
 *8-Bit Binary-Weighted Current Steering DAC — Analog Peripheral of RISC-V SoC*  
 *Technology: 0.18 µm CMOS (SKY130) | Supply: 1.8 V | Tool: xschem + ngspice*  
 *Offset Error: −0.349 LSB ✅ | Output Range: 0V to 1.2V ✅ | Monotonic across all 256 codes ✅*
-

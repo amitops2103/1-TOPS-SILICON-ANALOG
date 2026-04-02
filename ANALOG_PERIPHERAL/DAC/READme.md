@@ -703,6 +703,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 ### 18.2 Stage 2 — Full 8-Bit DAC
 
 **Testbench Setup:**
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/638083e5779bfc1bb7ad651e8cf38048f11bdbb5/ANALOG_PERIPHERAL/DAC/media/pg21.jpeg" title="Figure 3" height="4000" width="3500">
 
 | Parameter | Value |
 |-----------|-------|

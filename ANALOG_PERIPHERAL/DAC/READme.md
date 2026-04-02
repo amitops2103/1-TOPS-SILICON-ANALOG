@@ -236,6 +236,7 @@ When the switch opens, node X collapses toward 0V. When it closes again, parasit
 ## 6. Binary-Weighted vs Thermometer-Coded 
 
 ### 6.1 Thermometer-Coded
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg8.jpeg" title="Figure 3" height="400" width="350">
 
 8-bit binary decoded to 255-bit thermometer code. Each bit drives one identical unit current source.
 
@@ -250,6 +251,7 @@ When the switch opens, node X collapses toward 0V. When it closes again, parasit
 | Routing complexity | Extremely high |
 
 ### 6.2 Binary Weighted
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg7.jpeg" title="Figure 3" height="400" width="350">
 
 Each of the N bits directly controls a current source scaled to 2^k × I_unit. No decoder needed.
 

@@ -27,15 +27,16 @@
 14. [Complete Transistor Sizing Table](#14-complete-transistor-sizing-table)
 15. [Bit-Weighting and Current Mapping](#15-bit-weighting-and-current-mapping)
 16. [Input Switching — Digital Control](#16-input-switching--digital-control)
-17. [Simulation Results](#17-simulation-results)
-18. [Performance Summary](#18-performance-summary)
-19. [References](#19-references)
+17. [Circuit Architecture and Operation](#17-circuit-architecture-and-operation)
+18. [Simulation Results](#17-simulation-results)
+19. [Performance Summary](#18-performance-summary)
+20. [References](#19-references)
 
 ---
 
 ## 1. Project Overview
 
-This DAC is an **Analog Peripheral** in a RISC-V based SoC. The RISC-V CPU writes an 8-bit digital word to a DAC register via the APB bus. The DAC converts it into a proportional analog current/voltage that drives external analog circuits — all on-chip, with no external components.
+This project is an **8-bit Binary-Weighted Current Steering DAC** designed as an analog peripheral of a **RISC-V System-on-Chip (SoC)**. The CPU writes an 8-bit digital word to a DAC register via the APB bus, and the DAC converts it into a proportional analog current output for driving external analog circuits.
 
 ```
 RISC-V CPU  ──APB Bus──>  DAC Register  ──>  8-Bit Current Steering DAC  ──>  Analog Output
@@ -119,7 +120,7 @@ b0 ──[128R]┘
 | | Mandatory op-amp adds power, area, offset |
 | | INL/DNL degrade badly with resistor mismatch |
 
-**Eliminated:** 128:1 resistor spread is impractical in standard CMOS. On-chip resistors have ~20% absolute accuracy and ~0.1% matching — unacceptable at 8-bit resolution.
+**Eliminated:** The 128:1 resistor spread is impractical in standard CMOS. On-chip resistors have ~20% absolute accuracy and ~0.1% matching — causing significant linearity errors at 8-bit resolution.
 
 ---
 
@@ -133,7 +134,7 @@ Uses only two resistor values (R and 2R) in a ladder network. Thevenin resistanc
 | No exponential resistor spread | Requires buffer op-amp to prevent output loading |
 | Scales easily | RC ladder delay limits speed |
 
-**Eliminated:** Code-dependent output impedance and mandatory buffer op-amp conflict with the low-power, no-op-amp SoC requirement.
+**Eliminated:** Code-dependent output impedance and the mandatory buffer op-amp conflict with low-power, no-external-components requirements.
 
 ---
 
@@ -286,10 +287,6 @@ Each of the N bits directly controls a current source scaled to 2^k × I_unit. N
 | Area | Minimal |
 | Routing complexity | Minimal |
 
-### 6.3 Partially Segmented (Hybrid)
-
-Upper M bits use thermometer (linearity), lower (N−M) bits use binary (area). Common in high-speed designs. For 8-bit with M=4: 15 thermometer + 4 binary = 19 total sources.
-
 ---
 
 ## 7. Why Binary Weighted?
@@ -303,9 +300,6 @@ An 8-bit thermometer DAC needs 255 matched current sources, 255 switch pairs, a 
 **Reason 3 — Glitch Energy is Irrelevant at Low Frequency:**
 The major-carry glitch (0x7F→0x80) matters in high-speed RF DACs where it folds into the signal band. Our DAC is **low frequency** — the output fully settles within each clock period and the glitch decays before the next transition. This disadvantage simply does not apply.
 
-**Reason 4 — Proven at 8-bit Resolution:**
-Deveugele and Steyaert (2006) demonstrated >60 dB SFDR at 250 MS/s with a fully binary-weighted current-steering DAC. If binary weighting works at 10-bit/250 MS/s, it is more than sufficient at 8-bit/low-frequency.
-
 | Criterion | Thermometer | Binary Weighted | Winner |
 |-----------|-------------|-----------------|--------|
 | CPU interface | 8→255 decoder needed | Direct bit drive | **Binary** |
@@ -316,30 +310,49 @@ Deveugele and Steyaert (2006) demonstrated >60 dB SFDR at 250 MS/s with a fully 
 
 ---
 
-## 8. The Current Cell — Razavi's Cascode Switch Concept
+## 8. The Current Cell — Razavi's Differential Pair Switch
 
-Every bit cell uses the same three-layer structure from Razavi (2018):
+### The Problem with Simple Current Switching
+
+A naive current cell would connect a current source to a switch MOSFET and turn it on/off. When the switch turns off, the current source node collapses — the source has nowhere to send its current. When the switch turns on again, the parasitic capacitance at that node must charge back up, drawing a large transient current and injecting glitch energy on every transition.
+
+### The Razavi Insight: Always Steer, Never Switch Off
+
+Instead of switching the current source off, the current **always flows** and is simply *directed* between two complementary output nodes using a differential pair:
 
 ```
-      VDD
-       │
-    [M_cs]    ← PMOS current source: wide/long for matching and high r_ds
-       │
-    [M_cas]   ← PMOS cascode: boosts output impedance, shields node X
-       │
-  [M1]   [M2] ← NMOS differential switch pair: minimum size for low capacitance
-   │         │
-I_out+     I_out−
-
-Control:  bit → M1 gate,  bit_bar → M2 gate
+               I_out+         I_out−
+                  |               |
+            [  M1  (ON) ]   [ M2 (OFF) ]    ← differential switch pair
+                  |               |
+                  +───────+───────+
+                          |
+                  node X  |   ← voltage stays nearly constant
+                        [M_cs]              ← current source (ALWAYS ON)
+                          |
+                          Vb               ← bias from current mirror
 ```
 
-**Current source (M_cs):** Long-channel PMOS biased in saturation. Sets the bit-weighted current. Wide/long for matching and high early voltage (V_A ∝ L → high r_ds → good linearity).
+- `bit = 1, bit_bar = 0` → M1 ON, M2 OFF → current flows to I_out+
+- `bit = 0, bit_bar = 1` → M1 OFF, M2 ON → current flows to I_out−
 
-**Cascode (M_cas):** Shields the current source from output voltage swings. Boosts output impedance from r_ds to g_m × r_ds². Keeps node X at nearly constant voltage during switching — suppresses glitch injection.
+**The critical point:** M_cs is *always conducting*. Node X never collapses. Parasitic capacitance at X causes negligible output disturbance. The switch simply redirects an already-flowing current — it does not create or destroy it.
 
-**Differential switch pair (M1/M2):** Minimum-size NMOS for low parasitic capacitance at node X. Current is always flowing — only its direction changes. No collapse of node X, no large transient.
+### Our Complete Unit Cell
 
+```
+  VDD
+   |
+ [M_cs]    ← current source: PMOS, biased by wide-swing cascode mirror
+   |
+ [M1][M2]  ← Razavi differential switch pair: driven by bit / bit_bar
+   |    |
+I_out+ I_out−
+```
+
+This structure is replicated for all 8 bits, with each M_cs scaled to produce the correct binary-weighted current.
+ 
+    
 ---
 
 ## 9. Current Mirror Architectures
@@ -392,11 +405,11 @@ I_ref         I_out (accurate multiple of I_ref)
 | Cascode | g_m r_ds² | ~1.0–1.2 V | Required | Headroom too high for 1.8V supply |
 | **Wide-Swing Cascode** | **g_m r_ds²** | **~0.5 V** | **Self-generated** | ✅ Selected |
 
-**Reason 1 — Maximum output impedance for linearity:** INL is directly related to current source output impedance. g_m × r_ds² suppresses V_DS sensitivity — current stays accurate as output voltage varies across the full DAC range.
-
-**Reason 2 — 1.8 V supply demands minimum headroom:** Wide-swing self-bias reduces the headroom penalty from ~1.0 V (simple cascode) to ~0.5 V (2 × V_ov), leaving adequate room for the output swing.
-
-**Reason 3 — Self-contained biasing:** No external bias generator, no extra op-amp bias loop. The mirror biases itself from the reference branch — exactly what a clean SoC peripheral requires.
+- Reduces voltage headroom requirement (minimum V_out ≈ V_on)
+- Keeps all transistors in saturation
+- Maintains very high output resistance
+- Provides accurate and constant current replication
+- Allows larger output swing — essential for DAC linearity
 
 ---
 
@@ -593,55 +606,70 @@ With R_load = 4.7 kΩ:
 
 ## 16. Input Switching — Digital Control
 
-### Switching Mechanism
-
-Each bit drives a differential switch pair via bit and bit_bar signals:
+Each bit drives a differential switch pair. The bit signal and its complement are both required:
 
 ```
 bit = 1, bit_bar = 0  →  M1 ON,  M2 OFF  →  current steers to I_out+
 bit = 0, bit_bar = 1  →  M1 OFF, M2 ON   →  current steers to I_out−
 ```
 
-**Case 1 (bit = 1):** Left-side switch ON, right-side OFF. Current flows through left branch → I_out+.  
-**Case 2 (bit = 0):** Right-side switch ON, left-side OFF. Current flows through right branch → I_out−.
+In the final SoC, the RISC-V CPU writes to the DAC register via APB. Each clock cycle can update all 8 bits simultaneously.
 
-The input bit controls the switches to steer current between two branches, producing a differential output. Inverter chains inside each bit cell generate bit_bar automatically from bit.
-
-### Example — Input Word 1011 0011
+### Example — Input Word `1011 0011`
 
 ```
-Bit:     b7   b6   b5   b4   b3   b2   b1   b0
-Value:    1    0    1    1    0    0    1    1
+Bit:      b7  b6  b5  b4  b3  b2  b1  b0
+Value:     1   0   1   1   0   0   1   1
 
-Active: b7(128µA) + b5(32µA) + b4(16µA) + b1(2µA) + b0(1µA)
-I_out = 128 + 32 + 16 + 2 + 1 = 179 µA
-V_out = 179 µA × 4.7 kΩ ≈ 0.841 V
+Active bits: b7 (128µA) + b5 (32µA) + b4 (16µA) + b1 (2µA) + b0 (1µA)
+I_out = 128 + 32 + 16 + 2 + 1 = 179 × I_LSB ≈ 179 µA
 ```
 
-### Simulation — Pulse Inputs
-
-CPU register writes are mimicked with rectangular pulse waveforms. Each bit steps at a different period — successive powers of 2 — so all 8 pulses together generate a natural binary count from 0x00 to 0xFF, exercising all 256 output codes in sequence.
-
-| Bit | Pulse Parameters | Bit Current |
-|-----|-----------------|-------------|
-| b1 (LSB) | Shortest period | ~1 µA |
-| b2 | 2× b1 period | ~2 µA |
-| b3 | 4× b1 period | ~4 µA |
-| b4 | 8× b1 period | ~8 µA |
-| b5 | 16× b1 period | ~16 µA |
-| b6 | 32× b1 period | ~32 µA |
-| b7 | PULSE(1.8 0 0 20n 20n 64u 128u) | ~64 µA |
-| b8 (MSB) | PULSE(1.8 0 0 20n 20n 128u 256u) | ~128 µA |
+In simulation, CPU register writes are mimicked with rectangular pulse waveforms. Bit periods are successive powers of 2, so the 8 input pulses together generate a natural binary count from 0 to 255 across the simulation window — exercising all 256 output codes in sequence.
 
 ---
 
-## 17. Simulation Results
+## 17. Circuit Architecture and Operation
+
+### Internal DAC Structure
+
+```
+              VDD
+               │
+  ┌────────────┴──────────────────────────────────────────────┐
+  │         Wide-Swing Cascode Current Mirror                  │
+  │         (pcm1, pcm2, pcm3 — sets 4 µA reference)          │
+  └──┬────┬────┬────┬────┬────┬────┬────┬────────────────────┘
+     │    │    │    │    │    │    │    │
+    n8   n7   n6   n5   n4   n3   n2   n1        ← current sources
+   128µ  64µ  32µ  16µ   8µ   4µ   2µ   1µ       (M unit cells in parallel)
+     │    │    │    │    │    │    │    │
+   [cascode transistors per bit cell]
+     │    │    │    │    │    │    │    │
+  [S1, S2 differential switch pair] × 8           ← driven by bit / bit_bar
+     │              │
+  I_out+          I_out−  ──>  R_load (10 kΩ)  ──>  V_out
+```
+
+### Output Code Table
+
+| Input Code | Active Bits | I_out | V_out (10 kΩ load) |
+|------------|-------------|-------|---------------------|
+| 0x00 | None | 0 µA | 0 V |
+| 0x01 | b0 | ~4 µA | ~40 mV |
+| 0x80 | b7 only | ~128 µA | ~0.51 V |
+| 0xB3 (1011 0011) | b7+b5+b4+b1+b0 | ~179 µA | ~0.72 V |
+| 0xFF | All bits | ~255 µA | ~1.02 V |
+
+---
+
+## 18. Simulation Results
 
 All simulations: **ngspice** with **SKY130 TT (typical-typical) MOSFET models**, schematic in **xschem**.
 
 ---
 
-### 17.1 Stage 1 — 2-Bit Sub-DAC (MSBs b7 and b8)
+### 18.1 Stage 1 — 2-Bit Sub-DAC (MSBs b7 and b8)
 
 A 2-bit sub-DAC using the two MSBs was built and validated first before scaling to 8 bits. This approach confirms wide-swing cascode mirror biasing at the highest current levels, differential switch pair operation, and settling/glitch behavior.
 
@@ -670,7 +698,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 
 ---
 
-### 17.2 Stage 2 — Full 8-Bit DAC
+### 18.2 Stage 2 — Full 8-Bit DAC
 
 **Testbench Setup:**
 
@@ -713,7 +741,7 @@ The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256
 
 ---
 
-### 17.3 Output Code Table
+### 18.3 Output Code Table
 
 | Input Code | Active Bits | I_out | V_out (4.7 kΩ load) |
 |------------|------------|-------|---------------------|
@@ -725,7 +753,7 @@ The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256
 
 ---
 
-## 18. Performance Summary
+## 19. Performance Summary
 
 ### Verified Simulation Results
 
@@ -785,7 +813,7 @@ At code 0x00 (all bits OFF):
 
 ---
 
-## 19. References
+## 20. References
 
 | # | Reference | Used For |
 |---|-----------|----------|

@@ -558,6 +558,8 @@ Different circuit blocks in the DAC require different gm/ID operating points:
 Base unit cell: **W = 3 µm, L = 2.2 µm**. Binary-weighted currents are achieved by connecting M unit cells in parallel — all physical transistors are identical for best matching.
 
 ### Current Mirror and Current Source Transistors
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg15.jpeg" title="Figure 3" height="600" width="350">
+
 
 | Transistor | Role | L (µm) | W (µm) | Multiplier M |
 |------------|------|---------|---------|-------------|

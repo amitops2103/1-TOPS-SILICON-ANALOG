@@ -217,21 +217,9 @@ In a mixed-signal SoC, digital switching causes supply current transients that a
 
 ## 5. Single Switch vs Differential Current Steering
 
-### Problem with Single Switch (Naive) Approach
+### Problem with Single Switch Approach
 
-```
-(Single Switch — WRONG)
-      VDD
-       |
-    [M_cs]   ← current source
-       |
-   node X    ← collapses to 0V when switch opens!
-       |
-    [SW]     ← simple on/off switch
-       |
-    I_out
-```
-
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a295e201a717de621a5808e404ee1765d3519610/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
 When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
 
 ### Solution — Differential Current Steering (Razavi, 2018)

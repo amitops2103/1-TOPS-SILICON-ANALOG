@@ -217,36 +217,14 @@ In a mixed-signal SoC, digital switching causes supply current transients that a
 
 ## 5. Single Switch vs Differential Current Steering
 
-### Problem with Single Switch (Naive) Approach
-
-```
-(Single Switch — WRONG)
-      VDD
-       |
-    [M_cs]   ← current source
-       |
-   node X    ← collapses to 0V when switch opens!
-       |
-    [SW]     ← simple on/off switch
-       |
-    I_out
-```
+### Problem with Single Switch Approach
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
 
 When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
 
-### Solution — Differential Current Steering (Razavi, 2018)
+### Solution — Differential Current Steering 
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
 
-```
-          I_out+         I_out−
-              |               |
-        [ M1 (ON) ]     [ M2 (OFF) ]    ← differential switch pair
-              └──────┬──────┘
-                     |
-                node X  ← stays near constant voltage
-                  [M_cas]               ← cascode
-                     |
-                  [M_cs]               ← current source (ALWAYS ON)
-```
 
 - `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
 - `bit = 0` → M1 OFF, M2 ON → current goes to I_out−
@@ -255,7 +233,7 @@ When the switch opens, node X collapses toward 0V. When it closes again, parasit
 
 ---
 
-## 6. Binary-Weighted vs Thermometer-Coded vs Partially Segmented
+## 6. Binary-Weighted vs Thermometer-Coded 
 
 ### 6.1 Thermometer-Coded
 

@@ -102,7 +102,7 @@ Five standard DAC architectures were evaluated against our design constraints be
 ---
 
 ### 3.1 Binary-Weighted Resistor DAC
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bff1e1911556137de1c08ef851150cae5b1c5a3a/ANALOG_PERIPHERAL/DAC/media/pg5.jpeg" title="Figure 3" height="400" width="350">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/b37bbd1a474572099c1bdd84b80482b0e002b3e2/ANALOG_PERIPHERAL/DAC/media/pg05.jpeg" title="Figure 3" height="400" width="350">
 Each bit drives a resistor scaled R, 2R, 4R, 8R… Currents sum at a virtual-ground node via an op-amp.
 
 

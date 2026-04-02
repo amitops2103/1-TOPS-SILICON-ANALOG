@@ -298,18 +298,11 @@ A naive current cell would connect a current source to a switch MOSFET and turn 
 
 Instead of switching the current source off, the current **always flows** and is simply *directed* between two complementary output nodes using a differential pair:
 
-```
-               I_out+         I_out−
-                  |               |
-            [  M1  (ON) ]   [ M2 (OFF) ]    ← differential switch pair
-                  |               |
-                  +───────+───────+
-                          |
-                  node X  |   ← voltage stays nearly constant
-                        [M_cs]              ← current source (ALWAYS ON)
-                          |
-                          Vb               ← bias from current mirror
-```
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
+
+
+- `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
+- `bit = 0` → M1 OFF, M2 ON → current goes to I_out−
 
 - `bit = 1, bit_bar = 0` → M1 ON, M2 OFF → current flows to I_out+
 - `bit = 0, bit_bar = 1` → M1 OFF, M2 ON → current flows to I_out−

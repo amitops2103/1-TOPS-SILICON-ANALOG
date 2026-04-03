@@ -126,7 +126,7 @@ Let Vin = 0.85 v
 ### **5. DAC**
 
 **1. R-2R DAC**
-- Uses only two resistor values: R and 2R
+- Uses only two resistor values: R and 2R.
 - Each digital bit controls a switch
    - 1 → Connected to Vref
    - 0 → Connected to GND
@@ -137,4 +137,17 @@ Let Vin = 0.85 v
 ***Vdac = Vref x [D/(2^N)]***
   
 **2. Capacitive DAC**
+- Uses binary-weighted capacitors (C, 2C, 4C…).
+- During sampling → Capacitors store input charge.
+- During conversion → Bottom plates switches between:
+   - Vref
+   - Ground
+- Charge redistribution changes output node voltage.
 
+
+| Parameter	| R-2R DAC	| CDAC |
+|-----------|----------|------|
+| Power	 | Static current → Higher power	| No static current → Low power |
+| Area	 | Larger for high resolution	| More area-efficient |
+| Linearity	| Sensitive to resistor mismatch	| Better matching → Better linearity |
+| SAR ADC Suitability	| Needs separate S/H	| Acts as S/H + DAC

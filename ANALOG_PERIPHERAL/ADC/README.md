@@ -113,13 +113,13 @@ V. Repeat Until LSB
  - Move to next lower bit and repeat comparison
  - After all bits are tested → Output final digital code.
 
-For Example : 3-bit system
+       For Example : 3-bit system
 
-Let Vin = 0.85 v
-- Step-1 : Set MSB = 1 (D = 100) Vdac = Vreff/2 = 0.6v
-- Step-2 : 0.85 > 0.6 → (D = 110) Vdac = mid range of 0.6v to 1.2v = 0.9
-- Step-3 : 0.85 < 0.9 → (D = 101) Vdac = mid range of 0.6v to 0.9v = 0.75
-- Step-4 : 0.85 > 0.75 → (D = 101) : Digital output = 101
+       Let Vin = 0.85 v
+       - Step-1 : Set MSB = 1 (D = 100) Vdac = Vreff/2 = 0.6v
+       - Step-2 : 0.85 > 0.6 → (D = 110) Vdac = mid range of 0.6v to 1.2v = 0.9
+       - Step-3 : 0.85 < 0.9 → (D = 101) Vdac = mid range of 0.6v to 0.9v = 0.75
+       - Step-4 : 0.85 > 0.75 → (D = 101) : Digital output = 101
 
 ----------------
 
@@ -143,6 +143,17 @@ Let Vin = 0.85 v
    - Vref
    - Ground
 - Charge redistribution changes output node voltage.
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_1.png" height="200" width="350"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_2.png" height="200" width="350"/>
+    </td>
+  </tr>
+</table>
 
 
 | Parameter	| R-2R DAC	| CDAC |

@@ -12,7 +12,8 @@
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
 2. [what is ADC?](#2-what-is-a-adc)
-3. [ADC Architectures](#3-adc-architectures--comparative-study)
+3. [ADC Architectures](#3-adc-architectures)
+4. [SAR-ADC](#4-sar-adc)
 
 
 ----
@@ -23,26 +24,26 @@
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/ADC_CPU_interface.png" title="Figure 2" height="200" width="600">
 <p align="center"> Figure 2: ADC_CPU_interface</p> 
 
-**1. ADC (Analog-to-Digital Converter) :**
+**1.1 ADC (Analog-to-Digital Converter) :**
  - This block takes a real-world analog signal (like voltage from a sensor).
  - It converts it into a digital value (binary number) that the system can understand.
 Example: Temperature sensor voltage → digital number like `101101`
 
-**2. APB Bus (Advanced Peripheral Bus) :**
+**1.2 APB Bus (Advanced Peripheral Bus) :**
  - This is a simple, low-speed communication bus.
  - Used to connect peripherals like ADC, UART, GPIO, etc.
  - The ADC sends its digital data onto this bus.
 
-**3. AXI Bus (Advanced eXtensible Interface) :**
+**1.3 AXI Bus (Advanced eXtensible Interface) :**
  - This is a high-speed, high-performance bus.
  - Used for communication between major system components (like CPU, memory).
  - Data from APB is usually passed to AXI through a bridge (APB-to-AXI bridge).
 
-**4. CPU(RISC-V core)**
+**1.4 CPU(RISC-V core)**
  - The processor reads the digital data via AXI.
  - It can process, store, or act on the data.
 
-**Design Targets:**
+**Design Specification:**
 
 | Parameter | Specification |
 |-----------|--------------|
@@ -59,11 +60,12 @@ Example: Temperature sensor voltage → digital number like `101101`
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/ADC.png" title="Figure 3" height="800" width="3500">
 <p align="center"> Figure 3: ADC</p> 
 
-An Analog-to-Digital Converter (ADC) is a crucial component that translates continuous, real-world analog signals (like sound, light, temperature) into discrete digital data (0s and 1s) for processing by computers and microcontrollers.
+An **Analog-to-Digital Converter (ADC)** is a crucial component that translates continuous, real-world analog signals (like sound, light, temperature) into discrete digital data (0s and 1s) for processing by computers and microcontrollers.
 
 --------
 
-## **3. ADC Architectures**
+### **3. ADC Architectures**
+
 | Architecture	| Speed	| Resolution	| Typical Use |
 |--------------|-------|------------|-------------|
 | Flash	| Very high	| Low–Medium	|"RF, high-speed systems"|
@@ -72,3 +74,41 @@ An Analog-to-Digital Converter (ADC) is a crucial component that translates cont
 | Pipeline	| High	| Medium–High	| "Communication, imaging" |
 | Dual-Slope	| Very low	| High	| Multimeters |
 
+--------------------
+
+### **4. SAR-ADC**
+
+A Successive Approximation Register (SAR) ADC is a high-resolution, low-power analog-to-digital converter that uses a binary search algorithm to convert analog signals to digital.
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/SAR-ADC.png" title="Figure 3" height="800" width="800">
+<p align="center"> Figure 4: SAR-ADC</p> 
+
+- **Sample & Hold Circuit:** Acquires and holds the input voltage (***Vin***).
+- **Comparator:** Compares the input voltage with a trial voltage from the DAC.
+- **SAR Logic:** Implements a binary search algorithm to determine each bit of the digital output.
+- **Internal DAC (Digital-to-Analog Converter):** Converts the current digital approximation back into a voltage for comparison.
+
+
+ **SAR-ADC working**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/SAR_ADC_logic.png" title="Figure 3" height="800" width="800">
+<p align="center"> Figure 4: SAR-logic</p> 
+
+I. Start & Sample
+ - Start conversion and sample input voltage ***Vin**.
+ - Initialize SAR register to 0.
+
+II. Set Trial Bit
+  - Set MSB = 1 (trial)
+  - Generate corresponding ***Vdac***= ***Vreff\2***
+
+III. Compare
+   - Comparator compares ***Vin*** with ***Vdac***
+
+IV. Bit Decision
+  - If ***Vin*** > ***Vdac*** → keep bit = 1.
+  - Else → reset bit = 0.
+
+V. Repeat Until LSB
+ - Move to next lower bit and repeat comparison
+ - After all bits are tested → Output final digital code.

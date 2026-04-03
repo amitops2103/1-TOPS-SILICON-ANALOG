@@ -641,24 +641,9 @@ In simulation, CPU register writes are mimicked with rectangular pulse waveforms
 ## 17. Circuit Architecture and Operation
 
 ### Internal DAC Structure
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/32c85ddc283f0e394449c4627e322751d9c97101/ANALOG_PERIPHERAL/DAC/media/pg15.jpeg" title="Figure 3" height="500" width="550">
 
-```
-              VDD
-               │
-  ┌────────────┴──────────────────────────────────────────────┐
-  │         Wide-Swing Cascode Current Mirror                  │
-  │         (pcm1, pcm2, pcm3 — sets 4 µA reference)          │
-  └──┬────┬────┬────┬────┬────┬────┬────┬────────────────────┘
-     │    │    │    │    │    │    │    │
-    n8   n7   n6   n5   n4   n3   n2   n1        ← current sources
-   128µ  64µ  32µ  16µ   8µ   4µ   2µ   1µ       (M unit cells in parallel)
-     │    │    │    │    │    │    │    │
-   [cascode transistors per bit cell]
-     │    │    │    │    │    │    │    │
-  [S1, S2 differential switch pair] × 8           ← driven by bit / bit_bar
-     │              │
-  I_out+          I_out−  ──>  R_load (10 kΩ)  ──>  V_out
-```
+
 
 ### Output Code Table
 

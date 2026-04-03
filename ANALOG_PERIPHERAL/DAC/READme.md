@@ -66,6 +66,32 @@ A Digital-to-Analog Converter (DAC) is a circuit that translates a discrete digi
 
 In a digital system, a processor works with binary numbers. In the real world, signals are analog — voltages, currents, sounds, sensor readings. A DAC bridges this gap: it takes a number written by a CPU and produces a proportional physical signal that can drive speakers, actuators, displays, sensors, or any analog load.
 
+##  Understanding DAC Using an Inverting Amplifier
+
+The working of a DAC can be understood using a simple **inverting op-amp**:
+
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?\color{white}V_{out}=-\frac{R_f}{R}\cdot%20V_{in}" title="Vout equation"/>
+</p>
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://latex.codecogs.com/svg.image?\color{white}V_{out}=-\frac{R_f}{R}\cdot%20V_{in}" />
+    </td>
+    <td align="center">
+      <img src="YOUR_IMAGE_PATH_HERE" width="300"/>
+    </td>
+  </tr>
+</table>
+
+- The output voltage depends on the resistor **R**.
+
+- Different binary inputs (01, 10, …) change the resistance, which in turn changes the output voltage.
+
+- Each digital value produces a corresponding **analog output level**.
+
+- Increasing the digital input results in a **step-wise change**, forming an analog signal.
+
 ### Transfer Function
 
 For an N-bit DAC:

@@ -726,8 +726,6 @@ At code 0x00 (all bits OFF):
 
 ## 20. References
 
-## 20. References
-
 | # | Reference | Used For | Link |
 |---|-----------|----------|------|
 | [1] | F. Silveira, D. Flandre, P.G.A. Jespers, *"A gm/ID Based Methodology for the Design of CMOS Analog Circuits,"* IEEE JSSC, 1996 | gm/ID theory; strong inversion; sizing equations | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/1996-Jespers-gmIdMethodForAnalogDesign-JSSCC.pdf) |

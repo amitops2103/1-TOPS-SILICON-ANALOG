@@ -726,13 +726,15 @@ At code 0x00 (all bits OFF):
 
 ## 20. References
 
-| # | Reference | Used For |
-|---|-----------|----------|
-| [1] | F. Silveira, D. Flandre, P.G.A. Jespers, *"A gm/ID Based Methodology for the Design of CMOS Analog Circuits,"* IEEE JSSC, vol. 31, no. 9, Sep. 1996 | gm/ID theory; strong inversion for matching; sizing equations |
-| [2] | B. Razavi, *"The Current-Steering DAC,"* IEEE Solid-State Circuits Magazine, Winter 2018 | Differential pair switch concept; cascode switch; glitch energy; output impedance |
-| [3] | A. Narayanan et al., *"A 0.35 µm CMOS 6-bit Current Steering DAC,"* IEEE, 2012 | Hybrid thermometer/binary architecture reference |
-| [4] | J. Deveugele, M.S.J. Steyaert, *"A 10-bit 250-MS/s Binary-Weighted Current-Steering DAC,"* IEEE JSSC, vol. 41, no. 2, Feb. 2006 | Binary weighting achieves >60 dB SFDR; glitch analysis |
-| [5] | D.A. Mercer, *"Low-Power Approaches to High-Speed Current-Steering DACs in 0.18-µm CMOS,"* IEEE JSSC, vol. 42, no. 8, Aug. 2007 | Low-power biasing; cascode output impedance; matching vs V_ov |
+## 20. References
+
+| # | Reference | Used For | Link |
+|---|-----------|----------|------|
+| [1] | F. Silveira, D. Flandre, P.G.A. Jespers, *"A gm/ID Based Methodology for the Design of CMOS Analog Circuits,"* IEEE JSSC, 1996 | gm/ID theory; strong inversion; sizing equations | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/1996-Jespers-gmIdMethodForAnalogDesign-JSSCC.pdf) |
+| [2] | B. Razavi, *"The Current-Steering DAC,"* IEEE SSC Magazine, 2018 | Differential pair switch; cascode switch; glitch energy; output impedance | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/A%20Circuit%20for%20All%20Seasons%20The%20Current-Steering%20DAC%20Behzad%20Razavi.pdf) |
+| [3] | A. Narayanan et al., *"A 0.35 µm CMOS 6-bit Current Steering DAC,"* IEEE, 2012 | Hybrid thermometer/binary architecture | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/A_0.35m_CMOS_6-bit_current_steering_DAC.pdf) |
+| [4] | J. Deveugele, M.S.J. Steyaert, *"A 10-bit 250-MS/s Binary-Weighted Current-Steering DAC,"* IEEE JSSC, 2006 | Binary weighting; SFDR; glitch analysis | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/A_10-bit_250-MS_s_binary-weighted_current-steering_DAC.pdf) |
+| [5] | D.A. Mercer, *"Low-Power Approaches to High-Speed Current-Steering DACs in 0.18-µm CMOS,"* IEEE JSSC, 2007 | Low-power biasing; cascode output impedance; matching vs Vov | [View Paper](https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/772cece77fbb6b32ce722c1f1a4d8185cac97327/ANALOG_PERIPHERAL/DAC/literature/Low-Power_Approaches_to_High-Speed_Current-Steering_Digital-to-Analog_Converters_in_0.18-mum_CMOS.pdf) |
 
 ---
 

@@ -68,21 +68,19 @@ In a digital system, a processor works with binary numbers. In the real world, s
 
 ##  Understanding DAC Using an Inverting Amplifier
 
-The working of a DAC can be understood using a simple **inverting op-amp**:
-
-<p align="center">
-  <img src="https://latex.codecogs.com/svg.image?\color{white}V_{out}=-\frac{R_f}{R}\cdot%20V_{in}" title="Vout equation"/>
-</p>
+The working of a DAC can be understood using a simple **inverting op-amp**
+  
 <table>
   <tr>
     <td align="center">
-      <img src="https://latex.codecogs.com/svg.image?\color{white}V_{out}=-\frac{R_f}{R}\cdot%20V_{in}" />
+       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/16f2fbcd73452b5dc65e5f006eaa1463f8775409/ANALOG_PERIPHERAL/DAC/media/pg2.jpeg" width="300"/>
     </td>
     <td align="center">
-      <img src="YOUR_IMAGE_PATH_HERE" width="300"/>
+        <img src="https://latex.codecogs.com/svg.image?\color{white}V_{out}=-\frac{R_f}{R}\cdot%20V_{in}" />
     </td>
   </tr>
 </table>
+
 
 - The output voltage depends on the resistor **R**.
 

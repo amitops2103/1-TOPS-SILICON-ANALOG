@@ -636,7 +636,7 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 
 | Parameter | Value |
 |-----------|-------|
-| DAC block | dac_10 (8-bit) |
+| DAC block | dac (8-bit) |
 | Supply | V1 = 1.8 V |
 | Reference current | I0 = 4 µA |
 | R_load | 4.7 kΩ |
@@ -649,14 +649,6 @@ Small ~3 µA overshoot is consistent with channel-length modulation effects. Lev
 
 The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256 codes as the binary input counts 0x00 to 0xFF. Each bit doubling the current step means staircase steps grow progressively larger as higher bits toggle — the characteristic DAC transfer curve.
 
-**Key Observations:**
-
-| Observation | Value | Confirms |
-|------------|-------|---------|
-| Output range | ~0V to ~1.2V | Correct full-scale swing ✅ |
-| Monotonicity | Always increasing | No inversions observed ✅ |
-| MSB transition (127→128) | Large step at ~130 µs | Settles cleanly ✅ |
-| Glitch spikes at transitions | Narrow, settle quickly | Expected for binary-weighted ✅ |
 
 ---
 
@@ -678,13 +670,13 @@ The output is a **rising staircase from ~0V to ~1.2V**, sweeping through all 256
 
 | Parameter | Measured Value | Spec | Status |
 |-----------|---------------|------|--------|
-| Output range | 0V to ~1.2V | 0V to 1.2V | ✅ PASS |
-| LSB step size | 4.7 mV | 4.7 mV | ✅ PASS |
-| Offset error | −1.641 mV = −0.349 LSB | ≤ ±0.5 LSB | ✅ PASS |
-| Gain error | ~0 mV (swing = 1.2212V vs ideal 1.2V) | Negligible | ✅ PASS |
-| Monotonicity | Confirmed — all 256 codes | Required | ✅ PASS |
-| Technology | SKY130 0.18 µm CMOS | 0.18 µm | ✅ |
-| Supply | 1.8 V | 1.8 V | ✅ |
+| Output range | 0V to ~1.2V | 0V to 1.2V | 
+| LSB step size | 4.7 mV | 4.7 mV | 
+| Offset error | −1.641 mV = −0.349 LSB | ≤ ±0.5 LSB | 
+| Gain error | ~0 mV (swing = 1.2212V vs ideal 1.2V) | Negligible | 
+| Monotonicity | Confirmed — all 256 codes | Required | 
+| Technology | SKY130 0.13 µm CMOS | 0.13 µm | 
+| Supply | 1.8 V | 1.8 V | 
 
 ### Offset Error Calculation
 
@@ -696,7 +688,7 @@ At code 0x00 (all bits OFF):
   Offset Error = V_actual − V_ideal = −1.641 mV = −0.349 LSB
 
   Specification: ≤ ±0.5 LSB = ≤ ±2.35 mV
-  Result:        |−1.641 mV| < 2.35 mV  ✅ WITHIN SPEC
+  Result:        |−1.641 mV| < 2.35 mV  
 ```
 
 ### Design Flow Summary
@@ -725,9 +717,9 @@ At code 0x00 (all bits OFF):
   dac_10 (8-bit): 8× scaled current sources + 8× diff switch pairs
         ↓
 [Simulation — ngspice, SKY130 TT]
-  2-bit: 4 levels verified (0, 67, 130, 195 µA) ✅
-  8-bit: 256-code staircase, 0V to 1.2V, monotonic ✅
-  Offset: −0.349 LSB ✅ (spec: ≤ ±0.5 LSB)
+  2-bit: 4 levels verified (0, 67, 130, 195 µA) 
+  8-bit: 256-code staircase, 0V to 1.2V, monotonic 
+  Offset: −0.349 LSB  (spec: ≤ ±0.5 LSB)
 ```
 
 ---
@@ -741,11 +733,9 @@ At code 0x00 (all bits OFF):
 | [3] | A. Narayanan et al., *"A 0.35 µm CMOS 6-bit Current Steering DAC,"* IEEE, 2012 | Hybrid thermometer/binary architecture reference |
 | [4] | J. Deveugele, M.S.J. Steyaert, *"A 10-bit 250-MS/s Binary-Weighted Current-Steering DAC,"* IEEE JSSC, vol. 41, no. 2, Feb. 2006 | Binary weighting achieves >60 dB SFDR; glitch analysis |
 | [5] | D.A. Mercer, *"Low-Power Approaches to High-Speed Current-Steering DACs in 0.18-µm CMOS,"* IEEE JSSC, vol. 42, no. 8, Aug. 2007 | Low-power biasing; cascode output impedance; matching vs V_ov |
-| [6] | B. Murmann, P.G.A. Jespers, *Systematic Design of Analog CMOS Circuits,* Cambridge University Press, 2017 | gm/ID design methodology; sizing flow |
-| [7] | B. Razavi, *Design of Analog CMOS Integrated Circuits,* 2nd ed., McGraw-Hill, 2017 | DAC architecture fundamentals; current mirror theory |
 
 ---
 
 *8-Bit Binary-Weighted Current Steering DAC — Analog Peripheral of RISC-V SoC*  
 *Technology: 0.18 µm CMOS (SKY130) | Supply: 1.8 V | Tool: xschem + ngspice*  
-*Offset Error: −0.349 LSB ✅ | Output Range: 0V to 1.2V ✅ | Monotonic across all 256 codes ✅*
+*Offset Error: −0.349 LSB | Output Range: 0V to 1.2V | Monotonic across all 256 codes *

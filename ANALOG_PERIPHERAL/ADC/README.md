@@ -80,7 +80,7 @@ An **Analog-to-Digital Converter (ADC)** is a crucial component that translates 
 
 A Successive Approximation Register (SAR) ADC is a high-resolution, low-power analog-to-digital converter that uses a binary search algorithm to convert analog signals to digital.
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/SAR-ADC.png" title="Figure 3" height="800" width="800">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/SAR-ADC.png" title="Figure 4" height="400" width="800">
 <p align="center"> Figure 4: SAR-ADC</p> 
 
 - **Sample & Hold Circuit:** Acquires and holds the input voltage (***Vin***).
@@ -148,13 +148,17 @@ V. Repeat Until LSB
   <tr>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_1.png" height="200" width="350"/>
+      <p align="center"> Figure 6: CDAC_Sampling</p> 
     </td>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_2.png" height="200" width="350"/>
+      <p align="center"> Figure 7: CDAC_Conversion</p> 
     </td>
   </tr>
 </table>
 
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_3.png" title="Figure 3" height="800" width="1200">
+<p align="center"> Figure 8: CDAC_equivalent</p> 
 
 | Parameter	| R-2R DAC	| CDAC |
 |-----------|----------|------|

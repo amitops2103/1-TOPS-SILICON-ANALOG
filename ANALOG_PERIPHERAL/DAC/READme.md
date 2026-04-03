@@ -154,6 +154,7 @@ V_out = (C_eq / C_net) × V_ref
 
 ### 3.4 Sigma-Delta (ΣΔ) DAC
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/85de1a0cc8e151a77f9703ca101b43846e1c9ce7/ANALOG_PERIPHERAL/DAC/media/pg22.jpeg" title="Figure 3" height="400" width="350">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a40e809444a5d70f089dd7fd9a9a4c794a75556e/ANALOG_PERIPHERAL/DAC/media/pg24.jpeg "title="Figure 3" height="400" width="350">
 Oversampling + noise shaping. 1-bit DAC runs at N× signal frequency. Low-pass filter recovers high-resolution analog output.
 
 ```

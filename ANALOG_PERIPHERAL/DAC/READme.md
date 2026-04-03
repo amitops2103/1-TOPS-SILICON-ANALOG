@@ -16,7 +16,7 @@
 2. [What is a DAC?](#2-what-is-a-dac)
 3. [DAC Architectures — Comparative Study](#3-dac-architectures--comparative-study)
 4. [Why Current Steering?](#4-why-current-steering)
-5. [Binary-Weighted vs Thermometer-Coded vs Partially Segmented](#5-binary-weighted-vs-thermometer-coded-vs-partially-segmented)
+5. [Binary-Weighted vs Thermometer-Coded](#5-binary-weighted-vs-thermometer-coded)
 6. [Why Binary Weighted?](#6-why-binary-weighted)
 7. [Single Switch vs Differential Current Steering](#7-single-switch-vs-differential-current-steering)
 8. [The Current Cell — Razavi's Cascode Switch Concept](#8-the-current-cell--razavis-cascode-switch-concept)

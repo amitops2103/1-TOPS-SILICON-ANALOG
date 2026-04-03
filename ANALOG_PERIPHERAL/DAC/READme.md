@@ -1,7 +1,7 @@
  # 8-Bit Binary-Weighted Current Steering DAC
 
 > **Project:** 8-Bit Binary-Weighted Current Steering DAC — Analog Peripheral of a RISC-V SoC  
-> **Technology:** 0.18 µm CMOS (SKY130) | **Supply:** 1.8 V | **Tool:** xschem + ngspice  
+> **Technology:** 0.13 µm CMOS (SKY130) | **Supply:** 1.8 V | **Tool:** xschem + ngspice  
 > **References:** Razavi (2018), Deveugele & Steyaert (2006), Mercer (2007), Murmann & Jespers (2017), Silveira et al. (1996)
 
 ---
@@ -37,7 +37,7 @@
 
 ## 1. Project Overview
 
-This project is an **8-bit Binary-Weighted Current Steering DAC** designed as an analog peripheral of a **RISC-V System-on-Chip (SoC)**. The CPU writes an 8-bit digital word to a DAC register via the APB bus, and the DAC converts it into a proportional analog current output for driving external analog circuits.
+This project is an 8-bit Binary-Weighted Current Steering DAC designed as an analog peripheral of a **RISC-V System-on-Chip (SoC)**. The CPU writes an 8-bit digital word to a DAC register via the APB bus, and the DAC converts it into a proportional analog current output for driving external analog circuits.
 
 ```
 RISC-V CPU  ──APB Bus──>  DAC Register  ──>  8-Bit Current Steering DAC  ──>  Analog Output
@@ -54,7 +54,7 @@ RISC-V CPU  ──APB Bus──>  DAC Register  ──>  8-Bit Current Steering 
 | Power | Low (µA-range currents) |
 | Frequency | Low (SoC peripheral, not RF) |
 | Supply | 1.8 V |
-| Technology | 0.18 µm CMOS (SKY130 TT models) |
+| Technology | 0.13 µm CMOS (SKY130 TT models) |
 | Integration | Fully on-chip — no op-amps, no external components |
 | Offset Error Spec | ≤ ±0.5 LSB (≤ ±2.35 mV) |
 
@@ -62,7 +62,7 @@ RISC-V CPU  ──APB Bus──>  DAC Register  ──>  8-Bit Current Steering 
 
 ## 2. What is a DAC?
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a28a87e40f93ffea5176bf63c7f3740d4254a496/ANALOG_PERIPHERAL/DAC/media/pg1.jpeg" title="Figure 3" height="400" width="350">
-A **Digital-to-Analog Converter (DAC)** is a circuit that translates a discrete digital binary code into a continuous analog quantity — typically a voltage or current.
+A Digital-to-Analog Converter (DAC) is a circuit that translates a discrete digital binary code into a continuous analog quantity — typically a voltage or current.
 
 In a digital system, a processor works with binary numbers. In the real world, signals are analog — voltages, currents, sounds, sensor readings. A DAC bridges this gap: it takes a number written by a CPU and produces a proportional physical signal that can drive speakers, actuators, displays, sensors, or any analog load.
 
@@ -91,7 +91,6 @@ For our 8-bit design:
 | **INL** | Max deviation of actual transfer curve from ideal straight line |
 | **DNL** | Max deviation of any single step from ideal 1-LSB step |
 | **Monotonicity** | Output always increases as code increases (requires DNL > −1 LSB) |
-| **SFDR** | Ratio of signal to largest spurious tone in output spectrum |
 | **Settling Time** | Time for output to reach within ½ LSB of final value |
 
 ---
@@ -155,7 +154,7 @@ V_out = (C_eq / C_net) × V_ref
 
 ### 3.4 Sigma-Delta (ΣΔ) DAC
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/85de1a0cc8e151a77f9703ca101b43846e1c9ce7/ANALOG_PERIPHERAL/DAC/media/pg22.jpeg" title="Figure 3" height="400" width="350">
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a40e809444a5d70f089dd7fd9a9a4c794a75556e/ANALOG_PERIPHERAL/DAC/media/pg24.jpeg "title="Figure 3" height="400" width="350">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/a40e809444a5d70f089dd7fd9a9a4c794a75556e/ANALOG_PERIPHERAL/DAC/media/pg24.jpeg "title="Figure 3" height="350" width="350">
 Oversampling + noise shaping. 1-bit DAC runs at N× signal frequency. Low-pass filter recovers high-resolution analog output.
 
 ```
@@ -183,7 +182,6 @@ Each bit controls a dedicated current source. Current is steered between output 
 | No op-amp or buffer required | Output impedance must be very high for good linearity |
 | Total supply current nearly constant — low noise injection | Requires careful layout for matching |
 | Fast switching — no large RC nodes | |
-| Natural differential output — better SFDR | |
 | Scales cleanly with CMOS processes | |
 
 ---
@@ -259,43 +257,24 @@ An 8-bit thermometer DAC needs 255 matched current sources, 255 switch pairs, a 
 **Reason 3 — Glitch Energy is Irrelevant at Low Frequency:**
 The major-carry glitch (0x7F→0x80) matters in high-speed RF DACs where it folds into the signal band. Our DAC is **low frequency** — the output fully settles within each clock period and the glitch decays before the next transition. This disadvantage simply does not apply.
 
-| Criterion | Thermometer | Binary Weighted | Winner |
-|-----------|-------------|-----------------|--------|
-| CPU interface | 8→255 decoder needed | Direct bit drive | **Binary** |
-| Number of cells | 255 | 8 | **Binary** |
-| Area | Very high | Minimal | **Binary** |
-| Glitch (at our freq) | Irrelevant | Irrelevant | Tie |
-| SoC integration | Complex | Simple | **Binary** |
-
 ---
 ## 7. Single Switch vs Differential Current Steering
 
-### Problem with Single Switch Approach
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg9.jpeg" title="Figure 3" height="400" width="350">
-
-When the switch opens, node X collapses toward 0V. When it closes again, parasitic capacitance must charge from 0V — drawing a large transient from the output. This creates **glitch energy at every switching event**, leading to poor INL/DNL.
-
-### Solution — Differential Current Steering 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
-
-
-- `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
-- `bit = 0` → M1 OFF, M2 ON → current goes to I_out−
-
-**The key insight:** The current source **never turns off**. Node X never collapses. Parasitic capacitance at X causes negligible disturbance. This is why current **steering** fundamentally outperforms current **switching** for linearity and dynamic accuracy.
-
----
-## 8. The Current Cell — Razavi's Differential Pair Switch
 
 ### The Problem with Simple Current Switching
 
 A naive current cell would connect a current source to a switch MOSFET and turn it on/off. When the switch turns off, the current source node collapses — the source has nowhere to send its current. When the switch turns on again, the parasitic capacitance at that node must charge back up, drawing a large transient current and injecting glitch energy on every transition.
 
+---
+## 8. Solution — Razavi's Differential Pair Switch
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
+
+
 ### The Razavi Insight: Always Steer, Never Switch Off
 
 Instead of switching the current source off, the current **always flows** and is simply *directed* between two complementary output nodes using a differential pair:
-
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg10.jpeg" title="Figure 3" height="400" width="350">
 
 
 - `bit = 1` → M1 ON, M2 OFF → current goes to I_out+
@@ -304,31 +283,13 @@ Instead of switching the current source off, the current **always flows** and is
 - `bit = 1, bit_bar = 0` → M1 ON, M2 OFF → current flows to I_out+
 - `bit = 0, bit_bar = 1` → M1 OFF, M2 ON → current flows to I_out−
 
-**The critical point:** M_cs is *always conducting*. Node X never collapses. Parasitic capacitance at X causes negligible output disturbance. The switch simply redirects an already-flowing current — it does not create or destroy it.
-
-### Our Complete Unit Cell
-
-```
-  VDD
-   |
- [M_cs]    ← current source: PMOS, biased by wide-swing cascode mirror
-   |
- [M1][M2]  ← Razavi differential switch pair: driven by bit / bit_bar
-   |    |
-I_out+ I_out−
-```
-
-This structure is replicated for all 8 bits, with each M_cs scaled to produce the correct binary-weighted current.
- 
-    
 ---
-
 ## 9. Current Mirror Architectures
 
 Three current mirror topologies were evaluated to distribute the 4 µA reference to all 8 bit branches.
 
 ### 9.1 Simple Current Mirror
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg11.jpeg" title="Figure 3" height="400" width="350">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/bb991eb830d8bc0a754f1f083c8b1f9e94ca2d75/ANALOG_PERIPHERAL/DAC/media/pg11.jpeg" title="Figure 3" height="350" width="350">
 
 **Operation:**
 
@@ -378,24 +339,9 @@ Three current mirror topologies were evaluated to distribute the 4 µA reference
 - M6 provides output: ***Iout ≈ Iref* (4 µA)**
 - Biasing ensures: **Minimum Vout ≈ Von**
 
-**Why We Use Wide-Swing Cascode:**
 
-- Reduces voltage requirement (low headroom)
-- Keeps all transistors in saturation
-- Maintains high output resistance
-- Provides accurate and constant current replication
-- Allows larger output swing (important for DAC)
+**Conclusion:** Self-generated bias sets the cascode gate voltage so that the bottom transistor operates **at exactly the edge of saturation** — using minimum V_DS = V_ov. This recovers the headroom cost while retaining the same high output impedance.
 
-Self-generated bias sets the cascode gate voltage so that the bottom transistor operates **at exactly the edge of saturation** — using minimum V_DS = V_ov. This recovers the headroom cost while retaining the same high output impedance.
-
-```
-VDD
- │
-[M_p1]────[M_p3]   ← PMOS reference + bias generation (self-biased)
-[M_p2]────[M_p4]   ← PMOS cascode pair
- │              │
-I_ref         I_out (accurate multiple of I_ref)
-```
 
 **Key properties:**
 - Output impedance: g_m × r_ds² — same as simple cascode
@@ -472,10 +418,15 @@ The mirror reference is set to 4 µA because this is the unit cell current from 
 gm/ID is the transconductance efficiency — gm per unit bias current. It continuously spans all operating regions:
 
 ```
-gm/ID (V⁻¹)   Region               Best For
-  25–35        Weak inversion        Ultra-low power
-   8–20        Moderate inversion    Speed-power trade-off
-   2–8         Strong inversion      Matching, speed
+| gm/ID (V⁻¹) | Region  | Best For |
+|-------|-------------|---------|
+| 25–35 | Weak inversion | Ultra-low power |
+| 8–20 | Moderate inversion | Speed-power trade-off |
+| 2–8 | Strong inversion | Matching, speed |
+
+              
+             
+               
 ```
 
 Core equation (strong inversion):

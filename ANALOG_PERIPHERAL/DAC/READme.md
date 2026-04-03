@@ -417,7 +417,7 @@ The mirror reference is set to 4 µA because this is the unit cell current from 
 
 gm/ID is the transconductance efficiency — gm per unit bias current. It continuously spans all operating regions:
 
-```
+
 | gm/ID (V⁻¹) | Region  | Best For |
 |-------|-------------|---------|
 | 25–35 | Weak inversion | Ultra-low power |
@@ -427,7 +427,7 @@ gm/ID is the transconductance efficiency — gm per unit bias current. It contin
               
              
                
-```
+
 
 Core equation (strong inversion):
 
@@ -437,7 +437,7 @@ gm/ID = 2 / V_ov    where V_ov = V_GS − V_th
 
 ### Why gm/ID = 8 for Current Source Transistors?
 
-Current sources must be **well-matched**. The dominant error is threshold mismatch (Pelgrom's rule):
+Current sources must be **well-matched**. The dominant error is threshold mismatch :
 
 ```
 σ(V_th) = A_VTH / √(W × L)
@@ -478,13 +478,6 @@ Step 5 — Verify:
       ≈ 3.78 µA ≈ 4 µA  ✓ CONFIRMED
 ```
 
-### Why L = 2.2 µm and Not Minimum Length (0.18 µm)?
-
-**1. Higher Early Voltage:** V_A ∝ L → higher r_ds → better current source output impedance → lower INL. At L = 2.2 µm vs 0.18 µm, r_ds improves by ~12×.
-
-**2. Better Matching (Pelgrom's Rule):** WL = 6.6 µm² (long) vs 0.54 µm² (minimum). Long channel gives √(6.6/0.54) ≈ 3.5× lower V_th mismatch → 3.5× better current matching between all 8 bit cells.
-
-**3. Reduced Channel-Length Modulation:** λ ∝ 1/L. Longer transistors are less sensitive to V_DS variation — current stays more constant as output voltage swings.
 
 ---
 

@@ -100,7 +100,7 @@ I. Start & Sample
 
 II. Set Trial Bit
   - Set MSB = 1 (trial)
-  - Generate corresponding ***Vdac***= ***Vreff\2***
+  - Generate corresponding ***Vdac***= ***Vreff/2***
 
 III. Compare
    - Comparator compares ***Vin*** with ***Vdac***
@@ -116,7 +116,25 @@ V. Repeat Until LSB
 For Example : 3-bit system
 
 Let Vin = 0.85 v
-- Step-1 : Set MSB = 1 (D = 100) Vdac = Vreff\2 = 0.6v
+- Step-1 : Set MSB = 1 (D = 100) Vdac = Vreff/2 = 0.6v
 - Step-2 : 0.85 > 0.6 → (D = 110) Vdac = mid range of 0.6v to 1.2v = 0.9
 - Step-3 : 0.85 < 0.9 → (D = 101) Vdac = mid range of 0.6v to 0.9v = 0.75
 - Step-4 : 0.85 > 0.75 → (D = 101) : Digital output = 101
+
+----------------
+
+### **5. DAC**
+
+**1. R-2R DAC**
+- Uses only two resistor values: R and 2R
+- Each digital bit controls a switch
+   - 1 → Connected to Vref
+   - 0 → Connected to GND
+- Resistor ladder creates binary weighted currentsand the currents combine at output node.
+- Works on the concept of voltage divider.
+- Output voltage proportional to digital input.
+
+***Vdac = Vref x [D/(2^N)]***
+  
+**2. Capacitive DAC**
+

@@ -92,7 +92,7 @@ A Successive Approximation Register (SAR) ADC is a high-resolution, low-power an
  **SAR-ADC working**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/SAR_ADC_logic.png" title="Figure 3" height="800" width="800">
-<p align="center"> Figure 4: SAR-logic</p> 
+<p align="center"> Figure 5: SAR-logic</p> 
 
 I. Start & Sample
  - Start conversion and sample input voltage ***Vin**.
@@ -112,3 +112,11 @@ IV. Bit Decision
 V. Repeat Until LSB
  - Move to next lower bit and repeat comparison
  - After all bits are tested → Output final digital code.
+
+For Example : 3-bit system
+
+Let Vin = 0.85 v
+- Step-1 : Set MSB = 1 (D = 100) Vdac = Vreff\2 = 0.6v
+- Step-2 : 0.85 > 0.6 → (D = 110) Vdac = mid range of 0.6v to 1.2v = 0.9
+- Step-3 : 0.85 < 0.9 → (D = 101) Vdac = mid range of 0.6v to 0.9v = 0.75
+- Step-4 : 0.85 > 0.75 → (D = 101) : Digital output = 101

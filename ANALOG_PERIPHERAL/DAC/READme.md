@@ -89,6 +89,17 @@ The working of a DAC can be understood using a simple **inverting op-amp**
 - Each digital value produces a corresponding **analog output level**.
 
 - Increasing the digital input results in a **step-wise change**, forming an analog signal.
+ 
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/amitops2103/1-TOPS-SILICON-ANALOG/e0f594d322899db0fb4607fe2d18a6702004477f/ANALOG_PERIPHERAL/DAC/media/pg3.jpeg" width="350"/>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/amitops2103/1-TOPS-SILICON-ANALOG/e0f594d322899db0fb4607fe2d18a6702004477f/ANALOG_PERIPHERAL/DAC/media/pg4.jpeg" width="350"/>
+    </td>
+  </tr>
+</table>
 
 ### Transfer Function
 

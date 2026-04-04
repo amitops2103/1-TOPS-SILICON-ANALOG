@@ -25,7 +25,7 @@
 
 ### **1. Project Overview**
 
- Analog Signal → ADC → APB (slow bus) → AXI (fast bus) → CPU
+
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/ADC_CPU_interface.png" title="Figure 2" height="200" width="600">
 <p align="center"> Figure 2: ADC_CPU_interface</p> 
 
@@ -245,6 +245,7 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 2. **Hold** — It then freezes (holds) that voltage steady for the duration of one sampling period, giving the ADC's quantizer time to convert it to a digital number without the input changing underneath it. This creates the characteristic staircase shape shown in waveform 3.
 
 **The Nyquist Sampling Theorem**
+
 A band-limited signal with maximum frequency f can be perfectly reconstructed from its samples if and only if the sampling rate is greater than equal to the twice of the signal frquency.
 
 $$f_s \geq 2f$$
@@ -252,6 +253,9 @@ $$f_s \geq 2f$$
 fₛ = Sampling rate
 f = Input Signal frequency 
 
+- The minimum valid rate, fs = 2f, is called the Nyquist rate.
+- The threshold f = fs/2 is the Nyquist frequency.
+  
 <table>
   <tr>
     <td align="center">

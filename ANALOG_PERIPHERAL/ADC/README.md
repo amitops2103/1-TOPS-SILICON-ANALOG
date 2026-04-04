@@ -16,7 +16,9 @@
 4. [SAR-ADC](#4-sar-adc)
 5. [Internl-DAC](#5-internal-dac)
 6. [SAR-ADC Architectures](#6-sar-adc-architectures)
-7. [Comparator](#7-comparator)
+7. [Sample & Hold](#7-sample-&-hold)
+8. [Comparator](#8-comparator)
+9. [References](#9-referencs)
 
 
 ----
@@ -235,7 +237,41 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 
 ----------------------
 
-### **7. Comparator**
+### **7. Sample & Hold**
+
+- In the present architecture the Capacitive network work as DAC as well as S&H circuit.
+  
+1. **Sample** — At a precise clock instant, the circuit reads ("samples") the instantaneous voltage of the incoming analog signal. This is the dot on the waveform 1 above.
+2. **Hold** — It then freezes (holds) that voltage steady for the duration of one sampling period, giving the ADC's quantizer time to convert it to a digital number without the input changing underneath it. This creates the characteristic staircase shape shown in waveform 3.
+
+**The Nyquist Sampling Theorem**
+A band-limited signal with maximum frequency f can be perfectly reconstructed from its samples if and only if the sampling rate is greater than equal to the twice of the signal frquency.
+
+$$f_s \geq 2f$$
+
+fₛ = Sampling rate
+f = Input Signal frequency 
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/input.png" height="200" width="600"/>
+      <p align="center"> Figure 7: Input </p> 
+    </td>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/S%26H_output.png" height="200" width="600"/>
+      <p align="center"> Figure 8: S&H output</p> 
+    </td>
+  </tr>
+</table>
+
+Here
+- Waveform 1 — continuous input sinusoid (2.5 Hz).
+- Waveform 3 — overlay of input + S&H staircase output.
+  
+$$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
+
+### **8. Comparator**
 
 **Dyanamic Latch Comparator**
 

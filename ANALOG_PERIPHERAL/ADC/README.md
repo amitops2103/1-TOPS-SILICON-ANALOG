@@ -126,6 +126,11 @@ V. Repeat Until LSB
 ### **5. DAC**
 
 **1. R-2R DAC**
+
+img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" title="Figure 3" height="200" width="500">
+<p align="center"> Figure 6: R-2R DAC</p> 
+
+
 - Uses only two resistor values: R and 2R.
 - Each digital bit controls a switch
    - 1 → Connected to Vref
@@ -148,17 +153,17 @@ V. Repeat Until LSB
   <tr>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_1.png" height="200" width="350"/>
-      <p align="center"> Figure 6: CDAC_Sampling</p> 
+      <p align="center"> Figure 7: CDAC_Sampling</p> 
     </td>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_2.png" height="200" width="350"/>
-      <p align="center"> Figure 7: CDAC_Conversion</p> 
+      <p align="center"> Figure 8: CDAC_Conversion</p> 
     </td>
   </tr>
 </table>
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_3.png" title="Figure 3" height="800" width="1200">
-<p align="center"> Figure 8: CDAC_equivalent</p> 
+<p align="center"> Figure 9: CDAC_equivalent</p> 
 
 | Parameter	| R-2R DAC	| CDAC |
 |-----------|----------|------|

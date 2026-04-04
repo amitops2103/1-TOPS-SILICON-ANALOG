@@ -239,5 +239,26 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 
 **Dyanamic Latch Comparator**
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_sar_logic.png" title="Figure 3" height="600" width="1000">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Comparator.jpg" title="Figure 3" height="600" width="600">
 <p align="center"> Figure 15: Dyanamic Latch Comparator</p> 
+
+| Group	| MOSFETs	| Function |
+|-------|---------|----------|
+| Input Differential Pair	| M1, M2 | Receive (V_+), (V_-) and convert voltage difference to current | 
+| Regenerative Latch	| M3, M4 |	Cross-coupled pair providing positive feedback and fast decision |
+| Bias / Current Source	| Mb 	| Provide bias and tail current for the comparator |
+| Precharge / Reset	| M8, M9, M10, M11	| Precharge output nodes during reset phase |
+| Clock Controlled Evaluation	| M7, M5, M6 |	Enabled by clock to start the comparison phase|
+
+***Working***
+
+- **1.RESET  (Clk = 1)**
+  - Outputs Outp and Outn are precharged to Vdd​.
+  - No current flows through the differential pair.
+  - Comparator is initialized for the next comparison
+
+- **2.COMPARE  (Clk = 0)**
+  - Input pair (M1, M2) senses V+ and V−.
+  - Regenerative latch (M3–M6) amplifies the difference.
+  - Outputs resolve to one high and one low (digital decision)
+

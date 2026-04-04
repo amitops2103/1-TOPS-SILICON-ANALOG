@@ -314,4 +314,4 @@ $$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
 
 [2] McCreary, James L., and Paul R. Gray. "All-MOS charge redistribution analog-to-digital conversion techniques. I." IEEE Journal of Solid-State Circuits 10.6 (2003): 371-379.
 
-[3] Tang, Xiyuan, et al. "Low-power SAR ADC design: Overview and survey of state-of-the-art techniques." IEEE Transactions on Circuits and Systems I: Regular Papers 69.6 (2022): 2249-2262.
+[3] Liu, Chun-Cheng, et al. "A 10-bit 50-MS/s SAR ADC with a monotonic capacitor switching procedure." IEEE Journal of Solid-State Circuits 45.4 (2010): 731-740.

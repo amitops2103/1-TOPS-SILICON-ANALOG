@@ -127,7 +127,7 @@ V. Repeat Until LSB
 
 **1. R-2R DAC**
 
-img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" title="Figure 3" height="200" width="500">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" title="Figure 3" height="200" width="500">
 <p align="center"> Figure 6: R-2R DAC</p> 
 
 

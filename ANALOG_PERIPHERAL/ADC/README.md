@@ -62,21 +62,28 @@ Example: Temperature sensor voltage → digital number like `101101`
 
 ### **2. What is a ADC?**
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/ADC.png" title="Figure 3" height="800" width="3500">
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/ADC.png" title="Figure 3" height="500" width="800">
 <p align="center"> Figure 3: ADC</p> 
 
 An **Analog-to-Digital Converter (ADC)** is a crucial component that translates continuous, real-world analog signals (like sound, light, temperature) into discrete digital data (0s and 1s) for processing by computers and microcontrollers.
 
+***How ADC Work ?***
+
+1. **Sampling** — measuring the signal at regular intervals (Nyquist: fs ≥ 2×fmax).
+2. **Quantization** — rounding each sample to the nearest discrete level (2ⁿ levels).
+3. **Encoding** — converting each level to a binary code (e.g. 3.2V → 10110010).
+4. **Output** — sending the digital word to a microcontroller/DSP for processing.
+   
 --------
 
 ### **3. ADC Architectures**
 
 | Architecture	| Speed	| Resolution	| Typical Use |
 |--------------|-------|------------|-------------|
-| Flash	| Very high	| Low–Medium	|"RF, high-speed systems"|
+| Flash	| Very high	| Low–Medium	|RF, high-speed systems |
 | SAR	| Medium	| Medium–High	| Embedded systems |
-| Sigma-Delta	| Low	| Very high	| "Audio, sensors" |
-| Pipeline	| High	| Medium–High	| "Communication, imaging" |
+| Sigma-Delta	| Low	| Very high	| Audio, sensors |
+| Pipeline	| High	| Medium–High	| Communication, imaging |
 | Dual-Slope	| Very low	| High	| Multimeters |
 
 --------------------
@@ -132,8 +139,18 @@ V. Repeat Until LSB
 
 **1. R-2R DAC**
 
-<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" title="Figure 3" height="200" width="500">
-<p align="center"> Figure 6: R-2R DAC</p> 
+
+<table>
+  <tr>
+    <td align="center">
+       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" height="200" width="300"/>
+       <p align="center"> Figure 6: R-2R DAC</p> 
+    </td>
+    <td align="center">
+        <img src="https://latex.codecogs.com/svg.image?\color{white}V_{dac}=-\frac{R_f}{Rth}\cdot%20V_{th}" />
+    </td>
+  </tr>
+</table>
 
 
 - Uses only two resistor values: R and 2R.

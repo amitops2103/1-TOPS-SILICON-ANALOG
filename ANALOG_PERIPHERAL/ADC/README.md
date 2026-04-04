@@ -321,7 +321,14 @@ $$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
 - **2.COMPARE  (Clk = 0)**
   - Input pair (M1, M2) senses V+ and V−.
   - Regenerative latch (M3–M6) amplifies the difference.
-  - Outputs resolve to one high and one low (digital decision)
+  - Outputs resolve to one high and one low (digital decision).
+ 
+    
+- **Problem** : As the input common-mode voltage gradually decreases from Vref/2 toward ground during conversion (unlike the conventional method where it stays roughly constant), the effective gate overdrive voltage (VGS - VTH) of the comparator's input differential pair changes continuously. This causes a input-dependent dynamic offset that degraded linearity in the first prototype.
+
+  
+- **Solution** :  Improved Comparator with Current Source (Mb)
+A biased MOS transistor Mb is cascoded at the top of the switch transistor in the dynamic comparator. Since Mb operates in saturation, changes in its drain-source voltage have only a minor effect on drain current. This keeps the effective overdrive voltage of the input pair nearly constant even as the common-mode voltage varies, suppressing the dynamic offset.
 
 ---------------------------------
 

@@ -144,7 +144,7 @@ V. Repeat Until LSB
 - Works on the concept of voltage divider.
 - Output voltage proportional to digital input.
 
-***Vdac = Vref x [D/(2^N)]***
+$$V_{dac} = V_{ref} \times \frac{D}{2^N}$$
   
 **2. Capacitive DAC**
 - Uses binary-weighted capacitors (C, 2C, 4C…).

@@ -14,8 +14,9 @@
 2. [what is ADC?](#2-what-is-a-adc)
 3. [ADC Architectures](#3-adc-architectures)
 4. [SAR-ADC](#4-sar-adc)
-5. [DAC](#5-dac)
+5. [Internl-DAC](#5-internal-dac)
 6. [SAR-ADC Architectures](#6-sar-adc-architectures)
+7. [Comparator](#7-comparator)
 
 
 ----
@@ -231,3 +232,12 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 - Transmission gates are used for switching.
    - Unit capacitor **C = 5.52 fF**
    - **Ctotal = 1.413 pF** (for 8-bit)
+
+----------------------
+
+### **7. Comparator**
+
+**Dyanamic Latch Comparator**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_sar_logic.png" title="Figure 3" height="600" width="1000">
+<p align="center"> Figure 15: Dyanamic Latch Comparator</p> 

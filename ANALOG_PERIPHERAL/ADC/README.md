@@ -271,6 +271,10 @@ Here
   
 $$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
 
+**Nyquist satisfied, Signal can be perfectly reconstructed.**
+
+----------------
+
 ### **8. Comparator**
 
 **Dyanamic Latch Comparator**
@@ -298,3 +302,12 @@ $$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
   - Regenerative latch (M3–M6) amplifies the difference.
   - Outputs resolve to one high and one low (digital decision)
 
+---------------------------------
+
+**9. References**
+
+[1]  Tang, Xiyuan, et al. "Low-power SAR ADC design: Overview and survey of state-of-the-art techniques." IEEE Transactions on Circuits and Systems I: Regular Papers 69.6 (2022): 2249-2262.
+
+[2] McCreary, James L., and Paul R. Gray. "All-MOS charge redistribution analog-to-digital conversion techniques. I." IEEE Journal of Solid-State Circuits 10.6 (2003): 371-379.
+
+[3] Tang, Xiyuan, et al. "Low-power SAR ADC design: Overview and survey of state-of-the-art techniques." IEEE Transactions on Circuits and Systems I: Regular Papers 69.6 (2022): 2249-2262.

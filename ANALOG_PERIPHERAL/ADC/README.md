@@ -14,6 +14,8 @@
 2. [what is ADC?](#2-what-is-a-adc)
 3. [ADC Architectures](#3-adc-architectures)
 4. [SAR-ADC](#4-sar-adc)
+5. [DAC](#5-dac)
+6. [SAR-ADC Architectures](#6-sar-adc-architectures)
 
 
 ----
@@ -162,6 +164,18 @@ V. Repeat Until LSB
   </tr>
 </table>
 
+    Sampling phase (S1 close)
+    - top plate → Gnd
+    - bottom plate → Vin
+    - Qi = - C(total) x Vin
+ 
+    Conversion phase (S1 open)
+    - top plate → Vx
+    - bottom plate → Vreff/Gnd
+    - Qf = Ck(Vx - Vbk) → for each cap.
+     from the charge conservation
+    - Qi = Qf
+
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_3.png" title="Figure 3" height="800" width="1200">
 <p align="center"> Figure 9: CDAC_equivalent</p> 
 
@@ -170,4 +184,50 @@ V. Repeat Until LSB
 | Power	 | Static current → Higher power	| No static current → Low power |
 | Area	 | Larger for high resolution	| More area-efficient |
 | Linearity	| Sensitive to resistor mismatch	| Better matching → Better linearity |
-| SAR ADC Suitability	| Needs separate S/H	| Acts as S/H + DAC
+| SAR ADC Suitability	| Needs separate S/H	| Acts as S/H + DAC |
+
+
+-----------------
+
+### **6. SAR-ADC Architectures**
+
+**Architecture-1 : Single Ended SAR Architecture**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Single_ended_architecture.png" title="Figure 3" height="800" width="1000">
+<p align="center"> Figure 10: Single-ended Architecture</p> 
+
+$$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$$
+
+- During DAC switching, ***Vx*** drops below 0v then the parasitic body diodes of the MOS switches ***S1*** can become forward biased.
+- Forward-biased parasitic diodes create an unintended conduction path which allows the stored input voltage ***Vin*** to discharge.
+- Results in signal distortion and dynamic conversion error which leads to degraded linearity (INL/DNL) and reduced accuracy.
+
+
+**Architecture-2 : Conventional Architecture**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Conventional_architecture.jpeg" title="Figure 3" height="400" width="1000">
+<p align="center"> Figure 11: Conventional Architecture</p> 
+
+- Large switching energy : Large capacitors causes large energy consumption.
+- The average switching energy for **8 bit ≈ 339.34 CV²_reff**.
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Conventional_sar_logic.png" title="Figure 3" height="600" width="1000">
+<p align="center"> Figure 12: Conventional Architecture energy cosumpution</p> 
+
+**Architecture-3 : Monotonic switching Architecture**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_architecture.jpeg" title="Figure 3" height="400" width="1000">
+<p align="center"> Figure 13: Monotonic Switching Architecture</p> 
+
+- Less switching energy : average switching energy for **8 bit ≈ 63.5 CV²_reff**
+
+<img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_sar_logic.png" title="Figure 3" height="600" width="1000">
+<p align="center"> Figure 14: Monotonic Architecture energy cosumpution</p> 
+
+- During sampling, switches connect the capacitor array to Vip and Vin​ to store the input voltage.
+- During conversion, the SAR logic sequentially switches the capacitors between Vref​ and ground to generate comparison voltages.
+- The comparator compares the differential node voltages and the SAR logic determines the digital output bits D1–D8.
+- The capacitve network acts as both S/H circuit and the DAC.
+- Transmission gates are used for switching.
+   - Unit capacitor **C = 5.52 fF**
+   - **Ctotal = 1.413 pF** (for 8-bit)

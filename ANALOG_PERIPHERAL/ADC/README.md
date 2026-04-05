@@ -86,6 +86,8 @@ An **Analog-to-Digital Converter (ADC)** is a crucial component that translates 
 | Pipeline	| High	| Medium–High	| Communication, imaging |
 | Dual-Slope	| Very low	| High	| Multimeters |
 
+- As per the comparison and and specification for the RISC-V project the SAR-ADC should be good design option.
+  
 --------------------
 
 ### **4. SAR-ADC**

@@ -14,9 +14,9 @@
 2. [what is ADC?](#2-what-is-a-adc)
 3. [ADC Architectures](#3-adc-architectures)
 4. [SAR-ADC](#4-sar-adc)
-5. [Internl-DAC](#5-internal-dac)
-6. [Sample & Hold](#7-sample-&-hold)
-7. [SAR-ADC Architectures](#6-sar-adc-architectures)
+5. [Sample & Hold](#5-sample-&-hold)
+6. [Internl-DAC](#6-internal-dac)   
+7. [SAR-ADC Architectures](#7-sar-adc-architectures)
 9. [Comparator](#8-comparator)
 10. [References](#9-referencs)
 
@@ -137,7 +137,49 @@ V. Repeat Until LSB
 
 ----------------
 
-### **5. Internal-DAC**
+### **6. Sample & Hold**
+
+- In the present architecture the Capacitive network work as DAC as well as S&H circuit.
+  
+1. **Sample** — At a precise clock instant, the circuit reads ("samples") the instantaneous voltage of the incoming analog signal. This is the dot on the waveform 1 above.
+2. **Hold** — It then freezes (holds) that voltage steady for the duration of one sampling period, giving the ADC's quantizer time to convert it to a digital number without the input changing underneath it. This creates the characteristic staircase shape shown in waveform 3.
+
+**The Nyquist Sampling Theorem**
+
+A band-limited signal with maximum frequency f can be perfectly reconstructed from its samples if and only if the sampling rate is greater than equal to the twice of the signal frquency.
+
+$$f_s \geq 2f$$
+
+fₛ = Sampling rate
+f = Input Signal frequency 
+
+- The minimum valid rate, fs = 2f, is called the Nyquist rate.
+- The threshold f = fs/2 is the Nyquist frequency.
+  
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/input.png" height="200" width="600"/>
+      <p align="center"> Figure 6: Input </p> 
+    </td>
+    <td align="center">
+      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/S%26H_output.png" height="200" width="600"/>
+      <p align="center"> Figure 7: S&H output</p> 
+    </td>
+  </tr>
+</table>
+
+Here
+- Waveform 1 — continuous input sinusoid (2.5 Hz).
+- Waveform 3 — overlay of input + S&H staircase output.
+  
+$$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
+
+**Nyquist satisfied, Signal can be perfectly reconstructed.**
+
+------------------------------------------------
+
+### **6. Internal-DAC**
 
 **1. R-2R DAC**
 
@@ -146,7 +188,7 @@ V. Repeat Until LSB
   <tr>
     <td align="center">
        <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/R-2R.png" height="200" width="300"/>
-       <p align="center"> Figure 6: R-2R DAC</p> 
+       <p align="center"> Figure 8: R-2R DAC</p> 
     </td>
     <td align="center">
         <img src="https://latex.codecogs.com/svg.image?\color{white}V_{dac}=-\frac{R_f}{Rth}\cdot%20V_{th}" />
@@ -177,11 +219,11 @@ $$V_{dac} = V_{ref} \times \frac{D}{2^N}$$
   <tr>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_1.png" height="200" width="350"/>
-      <p align="center"> Figure 7: CDAC_Sampling</p> 
+      <p align="center"> Figure 9: CDAC_Sampling</p> 
     </td>
     <td align="center">
       <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_2.png" height="200" width="350"/>
-      <p align="center"> Figure 8: CDAC_Conversion</p> 
+      <p align="center"> Figure 10: CDAC_Conversion</p> 
     </td>
   </tr>
 </table>
@@ -199,7 +241,7 @@ $$V_{dac} = V_{ref} \times \frac{D}{2^N}$$
     - Qi = Qf
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/CDAC_3.png" title="Figure 3" height="800" width="1200">
-<p align="center"> Figure 9: CDAC_equivalent</p> 
+<p align="center"> Figure 11: CDAC_equivalent</p> 
 
 | Parameter	| R-2R DAC	| CDAC |
 |-----------|----------|------|
@@ -208,49 +250,6 @@ $$V_{dac} = V_{ref} \times \frac{D}{2^N}$$
 | Linearity	| Sensitive to resistor mismatch	| Better matching → Better linearity |
 | SAR ADC Suitability	| Needs separate S/H	| Acts as S/H + DAC |
 
-
------------------
-
-### **6. Sample & Hold**
-
-- In the present architecture the Capacitive network work as DAC as well as S&H circuit.
-  
-1. **Sample** — At a precise clock instant, the circuit reads ("samples") the instantaneous voltage of the incoming analog signal. This is the dot on the waveform 1 above.
-2. **Hold** — It then freezes (holds) that voltage steady for the duration of one sampling period, giving the ADC's quantizer time to convert it to a digital number without the input changing underneath it. This creates the characteristic staircase shape shown in waveform 3.
-
-**The Nyquist Sampling Theorem**
-
-A band-limited signal with maximum frequency f can be perfectly reconstructed from its samples if and only if the sampling rate is greater than equal to the twice of the signal frquency.
-
-$$f_s \geq 2f$$
-
-fₛ = Sampling rate
-f = Input Signal frequency 
-
-- The minimum valid rate, fs = 2f, is called the Nyquist rate.
-- The threshold f = fs/2 is the Nyquist frequency.
-  
-<table>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/input.png" height="200" width="600"/>
-      <p align="center"> Figure 7: Input </p> 
-    </td>
-    <td align="center">
-      <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/S%26H_output.png" height="200" width="600"/>
-      <p align="center"> Figure 8: S&H output</p> 
-    </td>
-  </tr>
-</table>
-
-Here
-- Waveform 1 — continuous input sinusoid (2.5 Hz).
-- Waveform 3 — overlay of input + S&H staircase output.
-  
-$$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
-
-**Nyquist satisfied, Signal can be perfectly reconstructed.**
-
 ---------------------
 
 ### **7. SAR-ADC Architectures**
@@ -258,7 +257,7 @@ $$f_s = 10 \text{ Hz} \geq 2 \times 2.5 \text{ Hz} = 5 \text{ Hz}$$
 **Architecture-1 : Single Ended SAR Architecture**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Single_ended_architecture.png" title="Figure 3" height="800" width="1000">
-<p align="center"> Figure 10: Single-ended Architecture</p> 
+<p align="center"> Figure 12: Single-ended Architecture</p> 
 
 $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$$
 
@@ -270,23 +269,23 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 **Architecture-2 : Conventional Architecture**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Conventional_architecture.jpeg" title="Figure 3" height="400" width="1000">
-<p align="center"> Figure 11: Conventional Architecture</p> 
+<p align="center"> Figure 13: Conventional Architecture</p> 
 
 - Large switching energy : Large capacitors causes large energy consumption.
 - The average switching energy for **8 bit ≈ 339.34 CV²_reff**.
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Conventional_sar_logic.png" title="Figure 3" height="600" width="1000">
-<p align="center"> Figure 12: Conventional Architecture energy cosumpution</p> 
+<p align="center"> Figure 14: Conventional Architecture energy cosumpution</p> 
 
 **Architecture-3 : Monotonic switching Architecture**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_architecture.jpeg" title="Figure 3" height="400" width="1000">
-<p align="center"> Figure 13: Monotonic Switching Architecture</p> 
+<p align="center"> Figure 15: Monotonic Switching Architecture</p> 
 
 - Less switching energy : average switching energy for **8 bit ≈ 63.5 CV²_reff**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Monotonic_sar_logic.png" title="Figure 3" height="600" width="1000">
-<p align="center"> Figure 14: Monotonic Architecture energy cosumpution</p> 
+<p align="center"> Figure 16: Monotonic Architecture energy cosumpution</p> 
 
 - During sampling, switches connect the capacitor array to Vip and Vin​ to store the input voltage.
 - During conversion, the SAR logic sequentially switches the capacitors between Vref​ and ground to generate comparison voltages.
@@ -303,7 +302,7 @@ $$V_x = 2V_g - \frac{V_g \times D}{256} + \frac{D \times V_{ref}}{256} - V_{in}$
 **Dyanamic Latch Comparator**
 
 <img src="https://github.com/amitops2103/1-TOPS-SILICON-ANALOG/blob/main/ANALOG_PERIPHERAL/ADC/media/Comparator.jpg" title="Figure 3" height="600" width="600">
-<p align="center"> Figure 15: Dyanamic Latch Comparator</p> 
+<p align="center"> Figure 17: Dyanamic Latch Comparator</p> 
 
 | Group	| MOSFETs	| Function |
 |-------|---------|----------|
